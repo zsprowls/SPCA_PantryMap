@@ -202,6 +202,12 @@ with col2:
     m = folium.Map(location=[42.9, -78.8], zoom_start=10, tiles='CartoDB positron')
 
     if map_type == "Choropleth (by ZIP)":
+        # Debug output
+        st.write("geo columns:", geo.columns)
+        st.write("geo head:", geo.head())
+        st.write("filtered columns:", filtered.columns)
+        st.write("filtered head:", filtered.head())
+        
         # Count per zip
         zip_counts = filtered['What is your zip code?'].value_counts().to_dict()
         geo['count'] = geo['ZCTA5CE10'].map(zip_counts).fillna(0)
