@@ -233,8 +233,9 @@ with col2:
         st.write("First feature properties:", geo.iloc[0].to_dict())
         st.write("Number of features with non-zero counts:", (geo['count'] > 0).sum())
 
-        folium.Choropleth(
-            geo_data=geo,
+        # Create choropleth with more explicit parameters
+        choropleth = folium.Choropleth(
+            geo_data=geo.__geo_interface__,  # Convert to GeoJSON interface
             name='choropleth',
             data=geo,
             columns=['ZCTA5CE10', 'count'],
@@ -244,8 +245,18 @@ with col2:
             line_opacity=0.5,
             legend_name='Number of Clients',
             highlight=True,
-            bins=5
+            bins=5,
+            reset=True
         ).add_to(m)
+
+        # Add tooltips
+        choropleth.geojson.add_child(
+            folium.features.GeoJsonTooltip(
+                fields=['ZCTA5CE10', 'count'],
+                aliases=['ZIP Code:', 'Number of Clients:'],
+                style=("background-color: white; color: #333333; font-family: arial; font-size: 12px; padding: 10px;")
+            )
+        )
     else:
         # Create heatmap using ZIP code centroids
         zip_centroids = geo.copy()
