@@ -260,42 +260,7 @@ with col2:
             HeatMap(heat_data).add_to(m)
         folium.LayerControl().add_to(m)
         folium_static(m, width=800, height=600)
-
-    # Add export button
-    if st.button("Export Map as PNG"):
-        # Save the map as HTML
-        m.save('temp_map.html')
-        
-        # Set up Chrome options
-        chrome_options = Options()
-        chrome_options.add_argument('--headless')
-        chrome_options.add_argument('--no-sandbox')
-        chrome_options.add_argument('--disable-dev-shm-usage')
-        
-        # Initialize the driver
-        driver = webdriver.Chrome(options=chrome_options)
-        
-        # Load the HTML file
-        driver.get('file://' + os.path.abspath('temp_map.html'))
-        
-        # Wait for the map to load
-        time.sleep(2)
-        
-        # Take screenshot
-        driver.save_screenshot('vaccine_map.png')
-        driver.quit()
-        
-        # Clean up
-        os.remove('temp_map.html')
-        
-        # Provide download link
-        with open('vaccine_map.png', 'rb') as file:
-            st.download_button(
-                label="Download Map",
-                data=file,
-                file_name="vaccine_map.png",
-                mime="image/png"
-            )
+        st.info("To export the heatmap, use your browser's screenshot tool.")
 
 # Display raw data
 if st.checkbox("Show Raw Data"):
