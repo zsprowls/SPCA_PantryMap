@@ -179,8 +179,7 @@ if microchip != "All":
 filtered['What is your zip code?'] = (
     filtered['What is your zip code?']
     .astype(str)
-    .str.split('.').str[0]  # Remove .0 if present
-    .str.strip()
+    .str.extract(r'(\d{5})')[0]  # Extract 5-digit ZIPs only
 )
 
 # Calculate filtered missing ZIP codes
@@ -211,8 +210,9 @@ with col2:
 
     if map_type == "Choropleth (by ZIP)":
         # Debug output
-        st.write("Unique geo ZCTA5CE10:", geo['ZCTA5CE10'].unique())
-        st.write("Unique filtered ZIPs:", filtered['What is your zip code?'].unique())
+        st.write("geo ZCTA5CE10 sample:", geo['ZCTA5CE10'].astype(str).sort_values().unique()[:10])
+        st.write("filtered ZIP sample:", filtered['What is your zip code?'].astype(str).sort_values().unique()[:10])
+        st.write("Intersection:", set(geo['ZCTA5CE10'].astype(str)) & set(filtered['What is your zip code?'].astype(str)))
         
         # Count per zip
         geo['ZCTA5CE10'] = geo['ZCTA5CE10'].astype(str).str.strip()

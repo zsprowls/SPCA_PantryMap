@@ -296,7 +296,7 @@ else:
         ),
         text=filtered_df.apply(lambda row: f"<a href='{row['petpoint_link']}' target='_blank'>{row['name']}</a><br>Address Type: {row['address_type']}", axis=1),
         hoverinfo='text',
-        name='Pet Pantry Locations'
+        name='Pet Pantry Client Locations'
     ))
     
     st.plotly_chart(fig, use_container_width=True, config={'scrollZoom': True})
