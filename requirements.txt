@@ -1,0 +1,39 @@
+# Base dependencies first
+numpy>=1.24.0
+requests>=2.31.0
+urllib3>=2.0.0
+
+# Core data packages
+pandas>=2.0.0
+geopandas>=0.14.0
+
+# Visualization
+plotly>=5.18.0
+folium>=0.14.0
+branca==0.7.0
+
+# Geospatial
+geopy>=2.2.0
+geojson==3.0.1
+
+# Excel support
+openpyxl>=3.1.0
+
+# Web scraping (for vaccine map)
+selenium>=4.15.0
+webdriver-manager>=4.0.1
+beautifulsoup4>=4.12.0
+
+# Web app (install last because it has the most dependencies)
+streamlit>=1.32.0
+streamlit-folium>=0.15.0
+
+# Additional dependencies
+gspread>=5.12.0
+oauth2client>=4.1.3
+
+# Google Drive integration
+google-auth>=2.27.0
+google-auth-oauthlib>=1.2.0
+google-auth-httplib2>=0.2.0
+google-api-python-client>=2.118.0 
