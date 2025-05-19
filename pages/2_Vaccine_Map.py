@@ -104,6 +104,14 @@ def load_data():
 df = load_data()
 geo = load_geojson()
 
+# Debug data loading
+st.write("Data loaded successfully")
+st.write("DataFrame shape:", df.shape)
+st.write("GeoJSON shape:", geo.shape)
+st.write("GeoJSON type:", type(geo))
+st.write("First few ZIP codes in data:", df['What is your zip code?'].head().tolist())
+st.write("First few ZIP codes in geo:", geo['ZCTA5CE10'].head().tolist())
+
 # Create a sidebar for filters
 st.sidebar.header("Filters")
 
@@ -219,6 +227,11 @@ with col2:
         st.write("Geo counts sample:", geo[['ZCTA5CE10', 'count']].head())
         st.write("Total counts in geo:", geo['count'].sum())
         st.write("Max count in geo:", geo['count'].max())
+        
+        # More detailed debug
+        st.write("Geo columns:", geo.columns.tolist())
+        st.write("First feature properties:", geo.iloc[0].to_dict())
+        st.write("Number of features with non-zero counts:", (geo['count'] > 0).sum())
 
         folium.Choropleth(
             geo_data=geo,
