@@ -195,12 +195,22 @@ if microchip != "All":
 filtered['What is your zip code?'] = (
     filtered['What is your zip code?']
     .astype(str)
+    .str.strip()
     .str.extract(r'(\d{5})')[0]
+    .fillna('')
 )
+
+# Ensure geo ZIP codes are clean strings
 geo['ZCTA5CE10'] = geo['ZCTA5CE10'].astype(str).str.strip()
 
+# Debug ZIP code types
+st.write("Sample filtered ZIP codes after cleaning:", filtered['What is your zip code?'].head().tolist())
+st.write("Sample geo ZIP codes after cleaning:", geo['ZCTA5CE10'].head().tolist())
+st.write("Filtered ZIP code type:", filtered['What is your zip code?'].dtype)
+st.write("Geo ZIP code type:", geo['ZCTA5CE10'].dtype)
+
 # Calculate filtered missing ZIP codes
-filtered_with_zip = len(filtered[filtered['What is your zip code?'].notna()])
+filtered_with_zip = len(filtered[filtered['What is your zip code?'].notna() & (filtered['What is your zip code?'] != '')])
 filtered_missing = len(filtered) - filtered_with_zip
 
 # Map type toggle
@@ -227,15 +237,17 @@ with col2:
 
     if map_type == "Choropleth (by ZIP)":
         # Count per zip
-        zip_counts = filtered['What is your zip code?'].value_counts().to_dict()
+        zip_counts = filtered[filtered['What is your zip code?'] != '']['What is your zip code?'].value_counts().to_dict()
         geo['count'] = geo['ZCTA5CE10'].map(zip_counts).fillna(0).astype(int)
 
-        # Convert to GeoJSON explicitly
-        geojson_data = geo.to_json()
-        
+        # Debug counts
+        st.write("Number of ZIP codes with counts:", len(zip_counts))
+        st.write("Sample counts:", dict(list(zip_counts.items())[:5]))
+        st.write("Total count in geo:", geo['count'].sum())
+
         # Create choropleth with explicit GeoJSON
         folium.Choropleth(
-            geo_data=geojson_data,
+            geo_data=geo.to_json(),
             name='choropleth',
             data=geo,
             columns=['ZCTA5CE10', 'count'],
@@ -262,7 +274,7 @@ with col2:
         
         # Add GeoJson layer with style
         folium.GeoJson(
-            geojson_data,
+            geo.to_json(),
             style_function=style_function,
             tooltip=folium.GeoJsonTooltip(
                 fields=['ZCTA5CE10', 'count'],
