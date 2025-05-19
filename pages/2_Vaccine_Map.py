@@ -96,7 +96,15 @@ st.markdown("This map shows the distribution of vaccine clinic attendees across 
 @st.cache_data
 def load_data():
     try:
-        return load_csv_from_drive('combined_survey_results.csv')
+        df = load_csv_from_drive('combined_survey_results.csv')
+        st.write("Data loaded successfully")
+        st.write("DataFrame info:")
+        st.write(df.info())
+        st.write("First few rows:")
+        st.write(df.head())
+        st.write("ZIP code column type:", df['What is your zip code?'].dtype)
+        st.write("Sample ZIP codes:", df['What is your zip code?'].head().tolist())
+        return df
     except Exception as e:
         st.error(f"Error loading survey data: {str(e)}")
         st.stop()
