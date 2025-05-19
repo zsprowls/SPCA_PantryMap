@@ -113,14 +113,6 @@ def load_data():
 df = load_data()
 geo = load_geojson()
 
-# Debug data loading
-st.write("Data loaded successfully")
-st.write("DataFrame shape:", df.shape)
-st.write("GeoJSON shape:", geo.shape)
-st.write("GeoJSON type:", type(geo))
-st.write("First few ZIP codes in data:", df['What is your zip code?'].head().tolist())
-st.write("First few ZIP codes in geo:", geo['ZCTA5CE10'].head().tolist())
-
 # Create a sidebar for filters
 st.sidebar.header("Filters")
 
@@ -203,12 +195,6 @@ filtered['What is your zip code?'] = (
 
 # Ensure geo ZIP codes are clean strings
 geo['ZCTA5CE10'] = geo['ZCTA5CE10'].astype(str).str.strip()
-
-# Debug ZIP code types
-st.write("Sample filtered ZIP codes after cleaning:", filtered['What is your zip code?'].head().tolist())
-st.write("Sample geo ZIP codes after cleaning:", geo['ZCTA5CE10'].head().tolist())
-st.write("Filtered ZIP code type:", filtered['What is your zip code?'].dtype)
-st.write("Geo ZIP code type:", geo['ZCTA5CE10'].dtype)
 
 # Calculate filtered missing ZIP codes
 filtered_with_zip = len(filtered[filtered['What is your zip code?'].notna() & (filtered['What is your zip code?'] != '')])
