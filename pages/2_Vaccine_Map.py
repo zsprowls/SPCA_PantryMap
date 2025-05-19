@@ -176,12 +176,9 @@ if microchip != "All":
     filtered = filtered[filtered["Are your pets microchipped?"] == microchip]
 
 # Ensure ZIP codes are strings and match the geojson
-filtered['What is your zip code?'] = (
-    pd.to_numeric(filtered['What is your zip code?'], errors="coerce")
-    .dropna()
-    .astype(int)
-    .astype(str)
-)
+filtered['What is your zip code?'] = pd.to_numeric(
+    filtered['What is your zip code?'], errors="coerce"
+).astype('Int64').astype(str)
 
 # Calculate filtered missing ZIP codes
 filtered_with_zip = len(filtered[filtered['What is your zip code?'].notna()])
@@ -217,7 +214,11 @@ with col2:
         st.write("filtered head:", filtered.head())
         
         # Count per zip
-        zip_counts = filtered['What is your zip code?'].value_counts().to_dict()
+        zip_counts = (
+            filtered[filtered['What is your zip code?'].str.isnumeric()]['What is your zip code?']
+            .value_counts()
+            .to_dict()
+        )
         geo['count'] = geo['ZCTA5CE10'].map(zip_counts).fillna(0)
         folium.Choropleth(
             geo_data=geo,
