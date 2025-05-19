@@ -214,6 +214,12 @@ with col2:
         zip_counts = filtered['What is your zip code?'].value_counts().to_dict()
         geo['count'] = geo['ZCTA5CE10'].map(zip_counts).fillna(0).astype(int)
 
+        # Debug output for choropleth
+        st.write("ZIP code counts sample:", dict(list(zip_counts.items())[:5]))
+        st.write("Geo counts sample:", geo[['ZCTA5CE10', 'count']].head())
+        st.write("Total counts in geo:", geo['count'].sum())
+        st.write("Max count in geo:", geo['count'].max())
+
         folium.Choropleth(
             geo_data=geo,
             name='choropleth',
