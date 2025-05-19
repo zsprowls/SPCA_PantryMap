@@ -175,6 +175,14 @@ if selected_income != "All":
 if microchip != "All":
     filtered = filtered[filtered["Are your pets microchipped?"] == microchip]
 
+# Ensure ZIP codes are strings and match the geojson
+filtered['What is your zip code?'] = (
+    filtered['What is your zip code?']
+    .dropna()
+    .astype(int)   # Remove .0
+    .astype(str)   # Convert to string
+)
+
 # Calculate filtered missing ZIP codes
 filtered_with_zip = len(filtered[filtered['What is your zip code?'].notna()])
 filtered_missing = len(filtered) - filtered_with_zip
