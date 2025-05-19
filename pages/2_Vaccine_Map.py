@@ -177,10 +177,10 @@ if microchip != "All":
 
 # Ensure ZIP codes are strings and match the geojson
 filtered['What is your zip code?'] = (
-    filtered['What is your zip code?']
+    pd.to_numeric(filtered['What is your zip code?'], errors="coerce")
     .dropna()
-    .astype(int)   # Remove .0
-    .astype(str)   # Convert to string
+    .astype(int)
+    .astype(str)
 )
 
 # Calculate filtered missing ZIP codes
