@@ -175,12 +175,13 @@ if selected_income != "All":
 if microchip != "All":
     filtered = filtered[filtered["Are your pets microchipped?"] == microchip]
 
-# Ensure ZIP codes are strings and match the geojson
+# Clean ZIP codes ONCE, before any mapping
 filtered['What is your zip code?'] = (
     filtered['What is your zip code?']
     .astype(str)
-    .str.extract(r'(\d{5})')[0]  # Extract 5-digit ZIPs only
+    .str.extract(r'(\d{5})')[0]
 )
+geo['ZCTA5CE10'] = geo['ZCTA5CE10'].astype(str).str.strip()
 
 # Calculate filtered missing ZIP codes
 filtered_with_zip = len(filtered[filtered['What is your zip code?'].notna()])
@@ -209,21 +210,9 @@ with col2:
     m = folium.Map(location=[42.9, -78.8], zoom_start=10, tiles='CartoDB positron')
 
     if map_type == "Choropleth (by ZIP)":
-        # Clean ZIP codes
-        filtered['What is your zip code?'] = (
-            filtered['What is your zip code?']
-            .astype(str)
-            .str.extract(r'(\d{5})')[0]
-        )
-        geo['ZCTA5CE10'] = geo['ZCTA5CE10'].astype(str).str.strip()
-
         # Count per zip
         zip_counts = filtered['What is your zip code?'].value_counts().to_dict()
         geo['count'] = geo['ZCTA5CE10'].map(zip_counts).fillna(0).astype(int)
-
-        # (Optional) Debug output
-        # st.write("geo['count'] NaNs:", geo['count'].isna().sum(), "min:", geo['count'].min(), "max:", geo['count'].max())
-        # st.write("geo['count'] sample:", geo[['ZCTA5CE10', 'count']].head(10))
 
         folium.Choropleth(
             geo_data=geo,
@@ -238,7 +227,6 @@ with col2:
         ).add_to(m)
     else:
         # Create heatmap using ZIP code centroids
-        # Get centroids for each ZIP code
         zip_centroids = geo.copy()
         zip_centroids['geometry'] = zip_centroids.geometry.centroid
         zip_centroids['lat'] = zip_centroids.geometry.y
@@ -250,13 +238,14 @@ with col2:
         # Create heat data with weighted points
         heat_data = []
         for zip_code, count in zip_counts.items():
-            if zip_code in zip_centroids['ZCTA5CE10'].values:
+            if pd.notna(zip_code) and zip_code in zip_centroids['ZCTA5CE10'].values:
                 centroid = zip_centroids[zip_centroids['ZCTA5CE10'] == zip_code].iloc[0]
                 # Add multiple points based on count to increase intensity
                 for _ in range(int(count)):
                     heat_data.append([centroid['lat'], centroid['lng']])
         
-        HeatMap(heat_data).add_to(m)
+        if heat_data:  # Only add heatmap if we have data
+            HeatMap(heat_data).add_to(m)
 
     # Add layer control
     folium.LayerControl().add_to(m)
