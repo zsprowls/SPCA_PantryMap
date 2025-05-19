@@ -222,20 +222,12 @@ with col2:
         zip_counts = filtered['What is your zip code?'].value_counts().to_dict()
         geo['count'] = geo['ZCTA5CE10'].map(zip_counts).fillna(0).astype(int)
 
-        # Debug output for choropleth
-        st.write("ZIP code counts sample:", dict(list(zip_counts.items())[:5]))
-        st.write("Geo counts sample:", geo[['ZCTA5CE10', 'count']].head())
-        st.write("Total counts in geo:", geo['count'].sum())
-        st.write("Max count in geo:", geo['count'].max())
+        # Convert to GeoJSON explicitly
+        geojson_data = geo.to_json()
         
-        # More detailed debug
-        st.write("Geo columns:", geo.columns.tolist())
-        st.write("First feature properties:", geo.iloc[0].to_dict())
-        st.write("Number of features with non-zero counts:", (geo['count'] > 0).sum())
-
-        # Create choropleth with more explicit parameters
-        choropleth = folium.Choropleth(
-            geo_data=geo.__geo_interface__,  # Convert to GeoJSON interface
+        # Create choropleth with explicit GeoJSON
+        folium.Choropleth(
+            geo_data=geojson_data,
             name='choropleth',
             data=geo,
             columns=['ZCTA5CE10', 'count'],
@@ -250,13 +242,26 @@ with col2:
         ).add_to(m)
 
         # Add tooltips
-        choropleth.geojson.add_child(
-            folium.features.GeoJsonTooltip(
+        folium.LayerControl().add_to(m)
+        
+        # Add a style function to ensure visibility
+        style_function = lambda x: {
+            'fillColor': '#ffff00',
+            'color': '#000000',
+            'fillOpacity': 0.7,
+            'weight': 1
+        }
+        
+        # Add GeoJson layer with style
+        folium.GeoJson(
+            geojson_data,
+            style_function=style_function,
+            tooltip=folium.GeoJsonTooltip(
                 fields=['ZCTA5CE10', 'count'],
                 aliases=['ZIP Code:', 'Number of Clients:'],
                 style=("background-color: white; color: #333333; font-family: arial; font-size: 12px; padding: 10px;")
             )
-        )
+        ).add_to(m)
     else:
         # Create heatmap using ZIP code centroids
         zip_centroids = geo.copy()
