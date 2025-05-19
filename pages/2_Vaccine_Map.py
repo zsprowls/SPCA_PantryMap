@@ -11,6 +11,7 @@ import time
 import os
 from shared.utils import check_password, load_geojson
 from shared.drive_utils import load_csv_from_drive
+import plotly.express as px
 
 # Set page config must be the first Streamlit command
 st.set_page_config(
@@ -233,82 +234,53 @@ with col1:
 # Map in the right column
 with col2:
     # Create a map centered on Erie County
-    m = folium.Map(location=[42.9, -78.8], zoom_start=10, tiles='CartoDB positron')
-
     if map_type == "Choropleth (by ZIP)":
-        # Count per zip
-        zip_counts = filtered[filtered['What is your zip code?'] != '']['What is your zip code?'].value_counts().to_dict()
-        geo['count'] = geo['ZCTA5CE10'].map(zip_counts).fillna(0).astype(int)
-
-        # Debug counts
-        st.write("Number of ZIP codes with counts:", len(zip_counts))
-        st.write("Sample counts:", dict(list(zip_counts.items())[:5]))
-        st.write("Total count in geo:", geo['count'].sum())
-
-        # Create choropleth with explicit GeoJSON
-        folium.Choropleth(
-            geo_data=geo.to_json(),
-            name='choropleth',
-            data=geo,
-            columns=['ZCTA5CE10', 'count'],
-            key_on='feature.properties.ZCTA5CE10',
-            fill_color='YlOrRd',
-            fill_opacity=0.9,
-            line_opacity=0.5,
-            legend_name='Number of Clients',
-            highlight=True,
-            bins=5,
-            reset=True
-        ).add_to(m)
-
-        # Add tooltips
-        folium.LayerControl().add_to(m)
-        
-        # Add a style function to ensure visibility
-        style_function = lambda x: {
-            'fillColor': '#ffff00',
-            'color': '#000000',
-            'fillOpacity': 0.7,
-            'weight': 1
-        }
-        
-        # Add GeoJson layer with style
-        folium.GeoJson(
-            geo.to_json(),
-            style_function=style_function,
-            tooltip=folium.GeoJsonTooltip(
-                fields=['ZCTA5CE10', 'count'],
-                aliases=['ZIP Code:', 'Number of Clients:'],
-                style=("background-color: white; color: #333333; font-family: arial; font-size: 12px; padding: 10px;")
-            )
-        ).add_to(m)
+        geo = load_geojson()
+        # Count clients per zip code from the filtered vaccine data
+        zip_counts = filtered['What is your zip code?'].value_counts().reset_index()
+        zip_counts.columns = ['ZCTA5CE10', 'count']
+        # Create the choropleth map
+        fig = px.choropleth_mapbox(
+            zip_counts,
+            geojson=geo,
+            locations='ZCTA5CE10',
+            featureidkey="properties.ZCTA5CE10",
+            color='count',
+            color_continuous_scale="YlOrRd",
+            mapbox_style="carto-positron",
+            zoom=7,
+            center={"lat": 42.8864, "lon": -78.8784},
+            opacity=0.7,
+            title=f"Vaccine Clinic Clients by ZIP Code as of {year}"
+        )
+        fig.update_layout(
+            mapbox_bounds={
+                "west": -80.5,
+                "east": -77.5,
+                "south": 41.8,
+                "north": 43.4
+            },
+            margin={"r":0,"t":30,"l":0,"b":0}
+        )
+        st.plotly_chart(fig, use_container_width=True, config={'scrollZoom': True})
     else:
-        # Create heatmap using ZIP code centroids
+        # Create heatmap using ZIP code centroids (keep folium for heatmap)
+        m = folium.Map(location=[42.9, -78.8], zoom_start=10, tiles='CartoDB positron')
         zip_centroids = geo.copy()
         zip_centroids['geometry'] = zip_centroids.geometry.centroid
         zip_centroids['lat'] = zip_centroids.geometry.y
         zip_centroids['lng'] = zip_centroids.geometry.x
-        
-        # Count occurrences per ZIP code
         zip_counts = filtered['What is your zip code?'].value_counts()
-        
-        # Create heat data with weighted points
         heat_data = []
         for zip_code, count in zip_counts.items():
             if pd.notna(zip_code) and zip_code in zip_centroids['ZCTA5CE10'].values:
                 centroid = zip_centroids[zip_centroids['ZCTA5CE10'] == zip_code].iloc[0]
-                # Add multiple points based on count to increase intensity
                 for _ in range(int(count)):
                     heat_data.append([centroid['lat'], centroid['lng']])
-        
-        if heat_data:  # Only add heatmap if we have data
+        if heat_data:
             HeatMap(heat_data).add_to(m)
-
-    # Add layer control
-    folium.LayerControl().add_to(m)
-
-    # Display the map
-    folium_static(m, width=800, height=600)
+        folium.LayerControl().add_to(m)
+        folium_static(m, width=800, height=600)
 
     # Add export button
     if st.button("Export Map as PNG"):
