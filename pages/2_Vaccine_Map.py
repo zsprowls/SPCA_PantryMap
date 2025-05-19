@@ -209,15 +209,22 @@ with col2:
     m = folium.Map(location=[42.9, -78.8], zoom_start=10, tiles='CartoDB positron')
 
     if map_type == "Choropleth (by ZIP)":
-        # Debug output
-        st.write("geo ZCTA5CE10 sample:", geo['ZCTA5CE10'].astype(str).sort_values().unique()[:10])
-        st.write("filtered ZIP sample:", filtered['What is your zip code?'].astype(str).sort_values().unique()[:10])
-        st.write("Intersection:", set(geo['ZCTA5CE10'].astype(str)) & set(filtered['What is your zip code?'].astype(str)))
-        
-        # Count per zip
+        # Clean ZIP codes
+        filtered['What is your zip code?'] = (
+            filtered['What is your zip code?']
+            .astype(str)
+            .str.extract(r'(\d{5})')[0]
+        )
         geo['ZCTA5CE10'] = geo['ZCTA5CE10'].astype(str).str.strip()
+
+        # Count per zip
         zip_counts = filtered['What is your zip code?'].value_counts().to_dict()
-        geo['count'] = geo['ZCTA5CE10'].map(zip_counts).fillna(0)
+        geo['count'] = geo['ZCTA5CE10'].map(zip_counts).fillna(0).astype(int)
+
+        # (Optional) Debug output
+        # st.write("geo['count'] NaNs:", geo['count'].isna().sum(), "min:", geo['count'].min(), "max:", geo['count'].max())
+        # st.write("geo['count'] sample:", geo[['ZCTA5CE10', 'count']].head(10))
+
         folium.Choropleth(
             geo_data=geo,
             name='choropleth',
