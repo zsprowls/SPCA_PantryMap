@@ -227,9 +227,11 @@ with col2:
             columns=['ZCTA5CE10', 'count'],
             key_on='feature.properties.ZCTA5CE10',
             fill_color='YlOrRd',
-            fill_opacity=0.7,
-            line_opacity=0.2,
-            legend_name='Number of Clients'
+            fill_opacity=0.9,
+            line_opacity=0.5,
+            legend_name='Number of Clients',
+            highlight=True,
+            bins=5
         ).add_to(m)
     else:
         # Create heatmap using ZIP code centroids
