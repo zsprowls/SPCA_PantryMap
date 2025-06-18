@@ -59,7 +59,7 @@ st.image("https://bufny.wpenginepowered.com/wp-content/uploads/2020/07/cropped-S
 # Centered title and description
 st.markdown("""
 <h2 class='centered-title'>SPCA Client Density & Human Food Pantry Map</h2>
-<p class='centered-desc'>This map shows human food pantry locations (green pins) with colored circles indicating SPCA client density by ZIP code area.</p>
+<p class='centered-desc'>This map overlays human food pantry locations (green pins) with a choropleth showing the density of SPCA clients by ZIP code.</p>
 """, unsafe_allow_html=True)
 
 # --- END BRANDING ---
@@ -122,43 +122,57 @@ gdf['count'] = gdf['count'].fillna(0)
 # Create a Folium map centered on Erie County
 m = folium.Map(location=[42.8864, -78.8784], zoom_start=9, tiles='OpenStreetMap')
 
-# Add colored circles to show ZIP code data (more reliable than choropleth)
+# Add choropleth layer (simplified approach for Streamlit Cloud compatibility)
 try:
-    st.write(f"Creating ZIP code visualization with {len(gdf)} ZIP codes...")
+    st.write(f"Creating choropleth with {len(gdf)} ZIP codes...")
     st.write(f"Sample data: {gdf[['ZCTA5CE10', 'count']].head()}")
     
-    # Add colored circles for ZIP codes with data
-    st.write("Adding colored circles for ZIP codes...")
-    for _, row in gdf.iterrows():
-        if row['count'] > 0:  # Only show ZIP codes with data
-            # Get the center of the polygon
-            center = row['geometry'].centroid
-            # Color based on count
-            if row['count'] > 10:
-                color = 'red'
-                radius = 2000
-            elif row['count'] > 5:
-                color = 'orange'
-                radius = 1500
-            else:
-                color = 'yellow'
-                radius = 1000
-            
-            folium.Circle(
-                location=[center.y, center.x],
-                radius=radius,
-                color=color,
-                fill=True,
-                fill_opacity=0.6,
-                popup=f"ZIP: {row['ZCTA5CE10']}<br>Client Count: {int(row['count'])}",
-                tooltip=f"ZIP {row['ZCTA5CE10']}: {int(row['count'])} clients"
-            ).add_to(m)
+    # Create a simpler choropleth with minimal parameters
+    folium.Choropleth(
+        geo_data=gdf.__geo_interface__,
+        data=gdf,
+        columns=['ZCTA5CE10', 'count'],
+        key_on='feature.properties.ZCTA5CE10',
+        fill_color='YlOrRd',
+        fill_opacity=0.7,
+        line_opacity=0.2,
+        legend_name='Pet Pantry Client Count'
+    ).add_to(m)
     
-    st.success("✅ ZIP code visualization added successfully!")
+    st.success("✅ Choropleth added successfully!")
     
 except Exception as e:
-    st.error(f"❌ ZIP code visualization failed: {e}")
+    st.error(f"❌ Choropleth failed: {e}")
     st.write("Continuing with just the pins...")
+    
+    # Fallback: add colored circles if choropleth fails
+    try:
+        st.write("Adding colored circles as fallback...")
+        for _, row in gdf.iterrows():
+            if row['count'] > 0:
+                center = row['geometry'].centroid
+                if row['count'] > 10:
+                    color = 'red'
+                    radius = 2000
+                elif row['count'] > 5:
+                    color = 'orange'
+                    radius = 1500
+                else:
+                    color = 'yellow'
+                    radius = 1000
+                
+                folium.Circle(
+                    location=[center.y, center.x],
+                    radius=radius,
+                    color=color,
+                    fill=True,
+                    fill_opacity=0.6,
+                    popup=f"ZIP: {row['ZCTA5CE10']}<br>Client Count: {int(row['count'])}",
+                    tooltip=f"ZIP {row['ZCTA5CE10']}: {int(row['count'])} clients"
+                ).add_to(m)
+        st.success("✅ Fallback circles added!")
+    except Exception as e2:
+        st.error(f"❌ Fallback also failed: {e2}")
 
 # Add clustered pantry pins with hover tooltips
 marker_cluster = MarkerCluster().add_to(m)
