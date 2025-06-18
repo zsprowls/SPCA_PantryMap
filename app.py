@@ -179,18 +179,19 @@ if user_location:
 # Add layer control
 folium.LayerControl().add_to(m)
 
-cols = st.columns([1,2,1])
-with cols[1]:
-    try:
-        st_folium(m, width=1400, height=650, returned_objects=[])
-        st.success("Map loaded successfully! Showing food pantry locations.")
-    except Exception as e:
-        st.error(f"Error displaying map: {str(e)}")
-        st.info("Please refresh the page or try again later.")
-        # Fallback: show map data as text
-        st.write("Map data loaded successfully:")
-        st.write(f"Number of pantry locations: {len(pantry_data)}")
-        st.write(f"Number of ZIP codes: {len(gdf)}")
+# Display the map
+try:
+    st.write("Rendering map...")
+    st_folium(m, width=1400, height=650, returned_objects=[])
+    st.success("✅ Map rendered successfully!")
+except Exception as e:
+    st.error(f"Error displaying map: {str(e)}")
+    st.info("Please refresh the page or try again later.")
+    # Fallback: show map data as text
+    st.write("Map data loaded successfully:")
+    st.write(f"Number of pantry locations: {len(pantry_data)}")
+    st.write(f"Number of ZIP codes: {len(gdf)}")
+    st.write(f"Choropleth data sample: {gdf[['ZCTA5CE10', 'count']].head()}")
 
 # Show nearby pantries as a table if found
 if not nearby_pantries.empty:
