@@ -59,7 +59,7 @@ st.image("https://bufny.wpenginepowered.com/wp-content/uploads/2020/07/cropped-S
 # Centered title and description
 st.markdown("""
 <h2 class='centered-title'>SPCA Client Density & Human Food Pantry Map</h2>
-<p class='centered-desc'>This map overlays human food pantry locations (green pins) with a choropleth showing the density of SPCA clients by ZIP code.</p>
+<p class='centered-desc'>This map shows human food pantry locations (green pins) with colored circles indicating SPCA client density by ZIP code area.</p>
 """, unsafe_allow_html=True)
 
 # --- END BRANDING ---
@@ -122,46 +122,42 @@ gdf['count'] = gdf['count'].fillna(0)
 # Create a Folium map centered on Erie County
 m = folium.Map(location=[42.8864, -78.8784], zoom_start=9, tiles='OpenStreetMap')
 
-# Add the choropleth layer with debugging
+# Add colored circles to show ZIP code data (more reliable than choropleth)
 try:
-    st.write(f"Creating choropleth with {len(gdf)} ZIP codes...")
+    st.write(f"Creating ZIP code visualization with {len(gdf)} ZIP codes...")
     st.write(f"Sample data: {gdf[['ZCTA5CE10', 'count']].head()}")
     
-    folium.Choropleth(
-        geo_data=gdf.__geo_interface__,
-        name='Choropleth',
-        data=gdf,
-        columns=['ZCTA5CE10', 'count'],
-        key_on='feature.properties.ZCTA5CE10',
-        fill_color='Reds',  # Fixed: use valid ColorBrewer code
-        fill_opacity=0.9,  # Increased opacity
-        line_opacity=1.0,  # Increased line opacity
-        line_color='black',  # Added black borders
-        legend_name='Pet Pantry Client Count',
-        nan_fill_color='white',
-        highlight=True
-    ).add_to(m)
-    
-    st.success("✅ Choropleth added successfully!")
-    
-    # Also add some colored circles as a backup
-    st.write("Adding colored circles as backup...")
+    # Add colored circles for ZIP codes with data
+    st.write("Adding colored circles for ZIP codes...")
     for _, row in gdf.iterrows():
         if row['count'] > 0:  # Only show ZIP codes with data
             # Get the center of the polygon
             center = row['geometry'].centroid
-            color = 'red' if row['count'] > 10 else 'orange' if row['count'] > 5 else 'yellow'
+            # Color based on count
+            if row['count'] > 10:
+                color = 'red'
+                radius = 2000
+            elif row['count'] > 5:
+                color = 'orange'
+                radius = 1500
+            else:
+                color = 'yellow'
+                radius = 1000
+            
             folium.Circle(
                 location=[center.y, center.x],
-                radius=1000,  # 1km radius
+                radius=radius,
                 color=color,
                 fill=True,
                 fill_opacity=0.6,
-                popup=f"ZIP: {row['ZCTA5CE10']}, Count: {int(row['count'])}"
+                popup=f"ZIP: {row['ZCTA5CE10']}<br>Client Count: {int(row['count'])}",
+                tooltip=f"ZIP {row['ZCTA5CE10']}: {int(row['count'])} clients"
             ).add_to(m)
     
+    st.success("✅ ZIP code visualization added successfully!")
+    
 except Exception as e:
-    st.error(f"❌ Choropleth failed: {e}")
+    st.error(f"❌ ZIP code visualization failed: {e}")
     st.write("Continuing with just the pins...")
 
 # Add clustered pantry pins with hover tooltips
@@ -208,7 +204,7 @@ except Exception as e:
     st.write("Map data loaded successfully:")
     st.write(f"Number of pantry locations: {len(pantry_data)}")
     st.write(f"Number of ZIP codes: {len(gdf)}")
-    st.write(f"Choropleth data sample: {gdf[['ZCTA5CE10', 'count']].head()}")
+    st.write(f"ZIP code data sample: {gdf[['ZCTA5CE10', 'count']].head()}")
 
 # Show nearby pantries as a table if found
 if not nearby_pantries.empty:
