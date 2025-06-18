@@ -58,8 +58,8 @@ st.markdown(
 st.image("https://bufny.wpenginepowered.com/wp-content/uploads/2020/07/cropped-SPCAlogo_horiz_notagline_color.jpg", width=350)
 # Centered title and description
 st.markdown("""
-<h2 class='centered-title'>SPCA Client Density & Human Food Pantry Map</h2>
-<p class='centered-desc'>This map overlays human food pantry locations (green pins) with a choropleth showing the density of SPCA clients by ZIP code.</p>
+<h2 class='centered-title'>SPCA Food Pantry Map</h2>
+<p class='centered-desc'>This map shows human food pantry locations (green pins) in Erie County, NY. SPCA client density data will be added soon.</p>
 """, unsafe_allow_html=True)
 
 # --- END BRANDING ---
@@ -122,12 +122,34 @@ gdf['count'] = gdf['count'].fillna(0)
 # Create a Folium map centered on Erie County
 m = folium.Map(location=[42.8864, -78.8784], zoom_start=9, tiles='OpenStreetMap')
 
-# Add a simple marker to test if the map works
-folium.Marker(
-    location=[42.8864, -78.8784],
-    popup="Erie County Center",
-    icon=folium.Icon(color='red', icon='info-sign')
-).add_to(m)
+# Add clustered pantry pins with hover tooltips
+marker_cluster = MarkerCluster().add_to(m)
+for _, row in pantry_data.iterrows():
+    marker = folium.Marker(
+        location=[row['latitude'], row['longitude']],
+        popup=folium.Popup(row['hover_text'], max_width=300),
+        tooltip=folium.Tooltip(row['hover_text'], sticky=True),
+        icon=folium.Icon(color='green', icon='shopping-cart', prefix='fa')
+    )
+    if not nearby_pantries.empty and row['name'] in nearby_pantries['name'].values:
+        marker.add_to(marker_cluster)
+        folium.Circle(
+            location=[row['latitude'], row['longitude']],
+            radius=250,
+            color='#7ac143',
+            fill=True,
+            fill_opacity=0.2
+        ).add_to(m)
+    else:
+        marker.add_to(marker_cluster)
+
+# Add user location marker if found
+if user_location:
+    folium.Marker(
+        location=user_location,
+        icon=folium.Icon(color='blue', icon='user', prefix='fa'),
+        popup="Your Location"
+    ).add_to(m)
 
 # Add layer control
 folium.LayerControl().add_to(m)
@@ -135,9 +157,8 @@ folium.LayerControl().add_to(m)
 cols = st.columns([1,2,1])
 with cols[1]:
     try:
-        # Try a simpler approach first
-        st.write("Testing map display...")
         st_folium(m, width=1400, height=650, returned_objects=[])
+        st.success("Map loaded successfully! Showing food pantry locations.")
     except Exception as e:
         st.error(f"Error displaying map: {str(e)}")
         st.info("Please refresh the page or try again later.")
