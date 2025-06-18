@@ -5,7 +5,7 @@ from streamlit_folium import st_folium
 st.title("CHOROPLETH ONLY TEST")
 st.write("This should show ONLY a choropleth with two colored rectangles. NO PINS.")
 
-# Create a very simple GeoJSON
+# Create a very simple GeoJSON with better coordinates
 simple_geojson = {
     "type": "FeatureCollection",
     "features": [
@@ -40,26 +40,30 @@ simple_geojson = {
     ]
 }
 
+st.write("GeoJSON created:")
+st.json(simple_geojson)
+
 st.write("Creating map...")
 
 try:
-    # Create map
-    m = folium.Map(location=[42.85, -78.85], zoom_start=10)
+    # Create map centered on the polygons
+    m = folium.Map(location=[42.85, -78.85], zoom_start=12)
     
-    # Add ONLY choropleth
+    # Add a simple marker to confirm map is working
+    folium.Marker([42.85, -78.85], popup="Center").add_to(m)
+    
+    # Try choropleth with simpler parameters
     folium.Choropleth(
         geo_data=simple_geojson,
-        data=None,
-        columns=None,
-        key_on='feature.properties.name',
-        fill_color='YlOrRd',
-        fill_opacity=0.7,
-        line_opacity=0.2,
+        name='Test Choropleth',
+        fill_color='red',
+        fill_opacity=0.8,
+        line_opacity=1.0,
         legend_name='Test Values'
     ).add_to(m)
     
     st.success("✅ CHOROPLETH CREATED SUCCESSFULLY!")
-    st.write("You should see two colored rectangles below:")
+    st.write("You should see two red rectangles and one marker below:")
     st_folium(m, width=600, height=400)
     
 except Exception as e:
@@ -67,6 +71,6 @@ except Exception as e:
     st.write(f"Error details: {str(e)}")
 
 st.write("---")
-st.write("If you see pins instead of colored rectangles, there's a routing issue.")
-st.write("If you see an error, choropleths don't work on Streamlit Cloud.")
-st.write("If you see colored rectangles, choropleths work and our data is the problem.") 
+st.write("If you see a black box, the choropleth is trying to render but has issues.")
+st.write("If you see red rectangles, choropleths work!")
+st.write("If you see just a marker, the choropleth failed silently.") 
