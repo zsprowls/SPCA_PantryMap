@@ -78,8 +78,8 @@ def scrape_pantry_data():
                     break
                     
             df = pd.DataFrame(pantries)
-            df.to_csv("Map Data/pantry_locations.csv", index=False)
-            with open("Map Data/pantry_locations.json", "w") as f:
+            df.to_csv("map_data/pantry_locations.csv", index=False)
+            with open("map_data/pantry_locations.json", "w") as f:
                 json.dump(pantries, f, indent=2)
             print(f"Successfully scraped {len(pantries)} pantries")
         except Exception as e:

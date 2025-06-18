@@ -5,8 +5,8 @@ import time
 import os
 
 # File paths
-input_path = 'Map Data/pantry_locations.csv'
-output_path = 'Map Data/geocoded_pantry_locations.csv'
+input_path = 'map_data/pantry_locations.csv'
+output_path = 'map_data/geocoded_pantry_locations.csv'
 
 # Read the CSV file
 df = pd.read_csv(input_path)

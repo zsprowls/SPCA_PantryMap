@@ -76,7 +76,7 @@ with st.sidebar:
     """, unsafe_allow_html=True)
 
 # Load the geocoded pantry data
-pantry_data = pd.read_csv('Map Data/geocoded_pantry_locations.csv')
+pantry_data = pd.read_csv('map_data/geocoded_pantry_locations.csv')
 
 # Filter out NaN lat/lon
 pantry_data = pantry_data.dropna(subset=['latitude', 'longitude'])
@@ -94,11 +94,11 @@ nearby_pantries = pd.DataFrame()
 user_location = None
 
 # Load the Erie County zip codes GeoJSON
-with open('Map Data/erie_survey_zips.geojson', 'r') as f:
+with open('map_data/erie_survey_zips.geojson', 'r') as f:
     erie_zips = json.load(f)
 
 # Load the PantryMap data (Person ID and Postal Code)
-pantry_map = pd.read_csv('Map Data/PantryMap.csv')
+pantry_map = pd.read_csv('map_data/PantryMap.csv')
 
 def clean_zip(zipcode):
     try:

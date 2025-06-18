@@ -39,6 +39,10 @@ Phone#:
 Hours of Operation:
         /html/body/div[1]/div[3]/div[2]/div/div[15]/div/div[2]/span[8]
 
+        #########################STEP ONE B#########################
+                I've gotta geocode that shit so I can have the lat and long for the pins
+
+
 
 #########################STEP TWO#########################
 
@@ -58,9 +62,9 @@ file and erie_survey_zips.geojson (to layout the zipcodes).  I think the other 2
 just for putting pins in the map, which we aren't doing now.  
 
 So now that I work through it, the only data cleanup you might have left is deleting
-        SPCA_Maps/Map Data/combined_survey_results.csv
-        SPCA_Maps/Map Data/geocoded_pantry_data.json
-        SPCA_Maps/Map Data/processed_pantry_data.json
+        SPCA_Maps/map_data/combined_survey_results.csv
+        SPCA_Maps/map_data/geocoded_pantry_data.json
+        SPCA_Maps/map_data/processed_pantry_data.json
 but take a look at all the shit in SPCA_Maps to make sure you don't need it to build out parts 
 of the app before deleting it.
 
@@ -79,6 +83,9 @@ Step 4 is testing it by comparing it to the other app and seeing if the chloropl
 I gotta do that one on my own.  And if they don't then I start yelling at you.
 
 
+#########################STEP FOUR#########################
+
+Step 5 is putting theses pantry pins on top of the map and then I will look at it compared to the existing one and see how it looksst
 
 
 
