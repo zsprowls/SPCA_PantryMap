@@ -58,8 +58,8 @@ st.markdown(
 st.image("https://bufny.wpenginepowered.com/wp-content/uploads/2020/07/cropped-SPCAlogo_horiz_notagline_color.jpg", width=350)
 # Centered title and description
 st.markdown("""
-<h2 class='centered-title'>SPCA Client Density & Human Food Pantry Map</h2>
-<p class='centered-desc'>This map overlays human food pantry locations (green pins) with a choropleth showing the density of SPCA clients by ZIP code.</p>
+<h2 class='centered-title'>SPCA Food Pantry Map</h2>
+<p class='centered-desc'>This map shows human food pantry locations (green pins) in Erie County, NY. SPCA client density data will be added soon.</p>
 """, unsafe_allow_html=True)
 
 # --- END BRANDING ---
@@ -121,21 +121,6 @@ gdf['count'] = gdf['count'].fillna(0)
 
 # Create a Folium map centered on Erie County
 m = folium.Map(location=[42.8864, -78.8784], zoom_start=9, tiles='OpenStreetMap')
-
-# Add the choropleth layer (without individual outlines)
-folium.Choropleth(
-    geo_data=gdf.__geo_interface__,
-    name='Choropleth',
-    data=gdf,
-    columns=['ZCTA5CE10', 'count'],
-    key_on='feature.properties.ZCTA5CE10',
-    fill_color='YlOrRd',
-    fill_opacity=0.7,
-    line_opacity=0.2,
-    legend_name='Pet Pantry Client Count',
-    nan_fill_color='white',
-    highlight=True
-).add_to(m)
 
 # Add clustered pantry pins with hover tooltips
 marker_cluster = MarkerCluster().add_to(m)
