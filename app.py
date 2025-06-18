@@ -133,7 +133,7 @@ try:
         data=gdf,
         columns=['ZCTA5CE10', 'count'],
         key_on='feature.properties.ZCTA5CE10',
-        fill_color='red',  # Changed to bright red
+        fill_color='Reds',  # Fixed: use valid ColorBrewer code
         fill_opacity=0.9,  # Increased opacity
         line_opacity=1.0,  # Increased line opacity
         line_color='black',  # Added black borders
