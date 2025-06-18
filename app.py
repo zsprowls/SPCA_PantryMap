@@ -122,58 +122,12 @@ gdf['count'] = gdf['count'].fillna(0)
 # Create a Folium map centered on Erie County
 m = folium.Map(location=[42.8864, -78.8784], zoom_start=9, tiles='OpenStreetMap')
 
-# Add the choropleth layer
-folium.Choropleth(
-    geo_data=gdf.__geo_interface__,
-    name='Choropleth',
-    data=gdf,
-    columns=['ZCTA5CE10', 'count'],
-    key_on='feature.properties.ZCTA5CE10',
-    fill_color='YlOrRd',
-    fill_opacity=0.7,
-    line_opacity=0.2,
-    legend_name='Pet Pantry Client Count',
-    nan_fill_color='white',
-    highlight=True
+# Add a simple marker to test if the map works
+folium.Marker(
+    location=[42.8864, -78.8784],
+    popup="Erie County Center",
+    icon=folium.Icon(color='red', icon='info-sign')
 ).add_to(m)
-
-# Add tooltips to each ZIP code polygon
-for _, row in gdf.iterrows():
-    tooltip_text = f"<b>Zip Code:</b> {row['ZCTA5CE10']}<br><b>Pet Pantry Client Count:</b> {int(row['count'])}"
-    folium.GeoJson(
-        row['geometry'],
-        style_function=lambda x: {'fillColor': 'transparent', 'color': 'transparent', 'weight': 0},
-        tooltip=folium.Tooltip(tooltip_text, sticky=True)
-    ).add_to(m)
-
-# Add clustered pantry pins with hover tooltips
-marker_cluster = MarkerCluster().add_to(m)
-for _, row in pantry_data.iterrows():
-    marker = folium.Marker(
-        location=[row['latitude'], row['longitude']],
-        popup=folium.Popup(row['hover_text'], max_width=300),
-        tooltip=folium.Tooltip(row['hover_text'], sticky=True),
-        icon=folium.Icon(color='green', icon='shopping-cart', prefix='fa')
-    )
-    if not nearby_pantries.empty and row['name'] in nearby_pantries['name'].values:
-        marker.add_to(marker_cluster)
-        folium.Circle(
-            location=[row['latitude'], row['longitude']],
-            radius=250,
-            color='#7ac143',
-            fill=True,
-            fill_opacity=0.2
-        ).add_to(m)
-    else:
-        marker.add_to(marker_cluster)
-
-# Add user location marker if found
-if user_location:
-    folium.Marker(
-        location=user_location,
-        icon=folium.Icon(color='blue', icon='user', prefix='fa'),
-        popup="Your Location"
-    ).add_to(m)
 
 # Add layer control
 folium.LayerControl().add_to(m)
@@ -181,10 +135,16 @@ folium.LayerControl().add_to(m)
 cols = st.columns([1,2,1])
 with cols[1]:
     try:
+        # Try a simpler approach first
+        st.write("Testing map display...")
         st_folium(m, width=1400, height=650, returned_objects=[])
     except Exception as e:
         st.error(f"Error displaying map: {str(e)}")
         st.info("Please refresh the page or try again later.")
+        # Fallback: show map data as text
+        st.write("Map data loaded successfully:")
+        st.write(f"Number of pantry locations: {len(pantry_data)}")
+        st.write(f"Number of ZIP codes: {len(gdf)}")
 
 # Show nearby pantries as a table if found
 if not nearby_pantries.empty:
