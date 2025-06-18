@@ -133,15 +133,32 @@ try:
         data=gdf,
         columns=['ZCTA5CE10', 'count'],
         key_on='feature.properties.ZCTA5CE10',
-        fill_color='YlOrRd',
-        fill_opacity=0.7,
-        line_opacity=0.2,
+        fill_color='red',  # Changed to bright red
+        fill_opacity=0.9,  # Increased opacity
+        line_opacity=1.0,  # Increased line opacity
+        line_color='black',  # Added black borders
         legend_name='Pet Pantry Client Count',
         nan_fill_color='white',
         highlight=True
     ).add_to(m)
     
     st.success("✅ Choropleth added successfully!")
+    
+    # Also add some colored circles as a backup
+    st.write("Adding colored circles as backup...")
+    for _, row in gdf.iterrows():
+        if row['count'] > 0:  # Only show ZIP codes with data
+            # Get the center of the polygon
+            center = row['geometry'].centroid
+            color = 'red' if row['count'] > 10 else 'orange' if row['count'] > 5 else 'yellow'
+            folium.Circle(
+                location=[center.y, center.x],
+                radius=1000,  # 1km radius
+                color=color,
+                fill=True,
+                fill_opacity=0.6,
+                popup=f"ZIP: {row['ZCTA5CE10']}, Count: {int(row['count'])}"
+            ).add_to(m)
     
 except Exception as e:
     st.error(f"❌ Choropleth failed: {e}")
