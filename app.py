@@ -120,7 +120,7 @@ gdf = gdf.merge(zip_counts, on='ZCTA5CE10', how='left')
 gdf['count'] = gdf['count'].fillna(0)
 
 # Create a Folium map centered on Erie County
-m = folium.Map(location=[42.8864, -78.8784], zoom_start=9, tiles='cartodbpositron')
+m = folium.Map(location=[42.8864, -78.8784], zoom_start=9, tiles='OpenStreetMap')
 
 # Add the choropleth layer
 folium.Choropleth(
@@ -180,7 +180,11 @@ folium.LayerControl().add_to(m)
 
 cols = st.columns([1,2,1])
 with cols[1]:
-    st_folium(m, width=1400, height=650)
+    try:
+        st_folium(m, width=1400, height=650, returned_objects=[])
+    except Exception as e:
+        st.error(f"Error displaying map: {str(e)}")
+        st.info("Please refresh the page or try again later.")
 
 # Show nearby pantries as a table if found
 if not nearby_pantries.empty:
