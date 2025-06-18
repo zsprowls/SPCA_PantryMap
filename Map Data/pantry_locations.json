@@ -1,0 +1,926 @@
+[
+  {
+    "name": "FAMILY HELP CENTER",
+    "address": "60 DINGENS STREET, BUFFALO, NY 14206",
+    "phone": "(716) 822-0919",
+    "hours": "Tuesday and Thursday 9:00 AM - 1:00 PM"
+  },
+  {
+    "name": "CATHOLIC CHARITIES - LOVEJOY PANTRY",
+    "address": "118 SCHILLER ST., BUFFALO, NY 14206",
+    "phone": "(716) 312-7510",
+    "hours": "Wednesday and Friday 9:30 AM - 2:30 PM"
+  },
+  {
+    "name": "ST. CASIMIR CHURCH FOOD PANTRY",
+    "address": "160 Cable St., BUFFALO, NY 14206",
+    "phone": "(716) 891-8753",
+    "hours": "Mondays 9:00 AM - 1:00 PM\nLast Monday of the month 7:00 - 9:00 PM"
+  },
+  {
+    "name": "ST. PATRICK PANTRY",
+    "address": "1119 WILLIAM STREET, BUFFALO, NY 14206",
+    "phone": "(716) 768-4717",
+    "hours": "Wednesday 9:45 AM - 4:00 PM"
+  },
+  {
+    "name": "SENECA BABCOCK FOOD PANTRY",
+    "address": "1168 SENECA STREET, BUFFALO, NY 14210",
+    "phone": "(716) 822-5094",
+    "hours": "1st, 2nd, 4th, 5th Wednesday 11:00 AM - 3:00 PM\n3rd Wednesday 5:00 PM - 9:00 PM"
+  },
+  {
+    "name": "RESPONSE TO LOVE CENTER PANTRY",
+    "address": "130 KOSCIUSZKO STREET, BUFFALO, NY 14212",
+    "phone": "(716)894-7030",
+    "hours": "Monday thru Thursday, 9:00 AM - 11:15 AM"
+  },
+  {
+    "name": "ST. LUKE'S MISSION OF MERCY",
+    "address": "325 WALDEN AVENUE, BUFFALO, NY 14211",
+    "phone": "(716) 894-4476",
+    "hours": "Monday, Wednesday, Thursday 10:00 AM - 12:00 PM"
+  },
+  {
+    "name": "MISSIONARY OUTREACH CALVARY",
+    "address": "1184 GENESEE STREET, BUFFALO, NY 14211",
+    "phone": "(716) 895-3642",
+    "hours": "Tuesday 9:30 AM - 1:30 PM"
+  },
+  {
+    "name": "THE GENESIS CENTER FOOD PANTRY",
+    "address": "2161 SENECA STREET - REAR, BUFFALO, NY 14210",
+    "phone": "(716) 822-1901",
+    "hours": "Thursday 9:00 AM - 1:00 PM and 5:00 - 6:00 PM\nMonday and Wednesday 11:00 AM - 1:00 PM (Emergency only)"
+  },
+  {
+    "name": "GRACE LUTHERAN CHURCH PANTRY",
+    "address": "174 CAZENOVIA STREET, BUFFALO, NY 14210",
+    "phone": "(716) 822-3267",
+    "hours": "Tuesday & Friday 10:00 AM \u2013 1:00 PM"
+  },
+  {
+    "name": "CATHOLIC CHARITIES - RICH STREET FOOD PANTRY",
+    "address": "930 GENESEE STREET, BUFFALO, NY 14211",
+    "phone": "(716) 314-7050",
+    "hours": "Tuesday 9:30 AM - 2:30 PM"
+  },
+  {
+    "name": "SISTER MARY JOSETTE FOOD PANTRY AT VILLA MARIA",
+    "address": "240 PINE RIDGE ROAD, CHEEKTOWAGA, NY 14225",
+    "phone": "(716) 961-2860",
+    "hours": "Tuesday and Thursday, 10:00 AM - 1:00 PM"
+  },
+  {
+    "name": "ST. LAWRENCE OUTREACH PANTRY",
+    "address": "2057 GENESEE ST., BUFFALO, NY 14211",
+    "phone": "(716) 896-0047",
+    "hours": "Monday and Thursday10:00 AM - 12:00 PM"
+  },
+  {
+    "name": "VALLEY COMMUNITY ASSOCIATION PANTRY",
+    "address": "93 LEDDY STREET, BUFFALO, NY 14210",
+    "phone": "(716) 823-4707",
+    "hours": "Thursday 9:00 AM - 1:00 PM"
+  },
+  {
+    "name": "TASTE OF FAITH FOOD PANTRY",
+    "address": "594 WINSLOW AVENUE, BUFFALO, NY 14211",
+    "phone": "(716)895-7019",
+    "hours": "Wednesdays 10:00 AM - 2:00 PM"
+  },
+  {
+    "name": "NEW COVENANT UNITED CHURCH OF CHRIST",
+    "address": "459 CLINTON STREET, BUFFALO, NY 14204",
+    "phone": "(716) 856-3392",
+    "hours": "Tuesday 9:00 AM - 2:00 PM"
+  },
+  {
+    "name": "REFUGE TEMPLE CHURCH",
+    "address": "943 JEFFERSON AVE, BUFFALO, NY 14204",
+    "phone": "(716) 886-2199",
+    "hours": "Tuesday, Wednesday, Friday 11:00 AM - 2:00 PM"
+  },
+  {
+    "name": "CATHOLIC CHARITIES - SOUTH BUFFALO PANTRY",
+    "address": "920 TIFFT STREET, BUFFALO, NY 14220",
+    "phone": "(716) 332-1168",
+    "hours": "Monday and Thursday 9:30 AM - 2:30 PM"
+  },
+  {
+    "name": "LIVING WATER FELLOWSHIP",
+    "address": "382 PINE RIDGE ROAD, CHEEKTOWAGA, NY 14225",
+    "phone": "(716) 289-5454",
+    "hours": "Tuesday 9:00 AM to 1:00 PM"
+  },
+  {
+    "name": "B.F.N.C. FOOD SHARE",
+    "address": "97 LEMON ST., BUFFALO, NY 14204",
+    "phone": "(716) 856-0363",
+    "hours": "Thursday and Friday 11:00 AM - 1:00 PM\nEmergency hours Mon thru Fri 9:00 AM - 5:00 PM"
+  },
+  {
+    "name": "HUMBOLDT PARKWAY BAPTIST CHURCH",
+    "address": "790 HUMBOLDT PARKWAY, BUFFALO, NY 14211",
+    "phone": "(716) 896-4363",
+    "hours": "Tuesday thru Friday 11:00 AM - 1:00 PM"
+  },
+  {
+    "name": "BUFFALO URBAN LEAGUE PANTRY",
+    "address": "86 PINE STREET, BUFFALO, NY 14204",
+    "phone": "(716) 847-8951",
+    "hours": "Monday thru Friday, 9:00-1:00"
+  },
+  {
+    "name": "FIRST SHILOH BAPTIST CHURCH",
+    "address": "15 PINE STREET, BUFFALO, NY 14204",
+    "phone": "(716) 847-6555",
+    "hours": "Wednesday 8:00 AM - 2:00 PM"
+  },
+  {
+    "name": "EDISON STREET MANNA FROM HEAVEN",
+    "address": "28 EDISON AVENUE, BUFFALO, NY 14215",
+    "phone": "(716) 895-8337",
+    "hours": "Wednesday and Saturday 10:00 AM - 12:00 PM"
+  },
+  {
+    "name": "CITIZENS COMMUNITY DEVELOPMENT",
+    "address": "134 WILLIAM STREET, BUFFALO, NY 14204",
+    "phone": "(716) 852-2324",
+    "hours": "Tuesday 10:00 AM - 2:00 PM\nWednesday 9:00 AM - 2:00 PM\nThursday 10:00 AM - 2:00 PM"
+  },
+  {
+    "name": "RESURRECTION LIFE FOOD PANTRY",
+    "address": "2145 OLD UNION ROAD, CHEEKTOWAGA, NY 14227",
+    "phone": "(716) 608-3400",
+    "hours": "Tuesday 10:00 AM - 12:00 PM\nThursday 10:00 AM - 1:00 PM\n1st & 3rd Thursday 6:00 - 7:00 PM\n(Closed any 5th week Thursday)"
+  },
+  {
+    "name": "CATHOLIC CHARITIES FULTON - ST. BRIGID FOOD PANTRY",
+    "address": "305 Perry Street, BUFFALO, NY 14204",
+    "phone": "(716) 853-4456",
+    "hours": "Wednesday 9:30 AM \u2013 12:00 PM and 12:30 - 2:00 PM"
+  },
+  {
+    "name": "OLD FIRST WARD - BUFFALO RIVER FOOD PANTRY",
+    "address": "62 REPUBLIC STREET, BUFFALO, NY 14204",
+    "phone": "(716) 856-8613",
+    "hours": "Thursday 8:00 AM - 12:00 PM"
+  },
+  {
+    "name": "GREATER WORKS CHRISTIAN FELLOWSHIP",
+    "address": "210 SOUTHAMPTON ST., BUFFALO, NY 14208",
+    "phone": "(716) 887-2301",
+    "hours": "Wednesday 10:00 AM - 2:00 PM"
+  },
+  {
+    "name": "GROUP MINISTRIES",
+    "address": "1333 JEFFERSON AVENUE, BUFFALO, NY 14208",
+    "phone": "(716) 259-8039",
+    "hours": "Monday and Wednesday, 10:00 AM - 2:00 PM"
+  },
+  {
+    "name": "C.A.O. OF WNY PANTRY",
+    "address": "347 EAST FERRY ST., Buffalo, New York 14208",
+    "phone": "(716) 881-5150",
+    "hours": "Tuesday, Thursday, Friday 10:00 AM \u2013 2:00 PM"
+  },
+  {
+    "name": "CITY MISSION SOCIETY INC. PANTRY",
+    "address": "100 E. TUPPER STREET, BUFFALO, NY 14203",
+    "phone": "(716) 854-8181",
+    "hours": "Monday and Wednesday 10:00 AM - 12:00 PM"
+  },
+  {
+    "name": "ST. PHILIP'S EPISCOPAL CHURCH",
+    "address": "15 FERNHILL AVENUE, BUFFALO, NY 14215",
+    "phone": "(716) 833-0442",
+    "hours": "Wednesday 10:00 AM \u2013 3:00 PM"
+  },
+  {
+    "name": "THE SALVATION ARMY - BUFFALO",
+    "address": "1000 MAIN STREET, BUFFALO, NY 14202",
+    "phone": "(716) 883-9800",
+    "hours": "Monday 9:00 AM - 2:00 PM\nWednesday 11:00 AM - 2:00 PM\nFriday 9:00 AM - 1:00 PM"
+  },
+  {
+    "name": "JOSEPH PROJECT MOBILE FOOD PANTRY",
+    "address": "437 MASTEN AVENUE, BUFFALO, NY 14209",
+    "phone": "(716) 854-1001",
+    "hours": "Please call agency for mobile pantry locations, times and dates; or view website at: http://www.buffalodreamcenter.org/food-pantry-sites/"
+  },
+  {
+    "name": "CREATIVE RESTORATIONS FOOD PANTRY",
+    "address": "371 DELAWARE AVE., BUFFALO, NY 14202",
+    "phone": "(716) 553-4886",
+    "hours": "Monday 9:00 AM-12:00 PM\nWendesday 12:00-3:00 PM\nFriday 3:00-6:00 PM"
+  },
+  {
+    "name": "14 HOLY HELPERS SHARING COMMITTEE",
+    "address": "1345 INDIAN CHURCH ROAD, WEST SENECA, NY 14224",
+    "phone": "(716) 674-2374",
+    "hours": "Delivery pantry for 14224 area code. \nMonday thru Friday, 9:00 AM - 5:00 PM; Saturday and Sunday by appointment."
+  },
+  {
+    "name": "UPPER ROOM CHURCH OF GOD IN CHRIST",
+    "address": "131 FLORIDA STREET, BUFFALO, NY 14208",
+    "phone": "(716) 893-6987",
+    "hours": "Wednesday 1:00 - 4:00 PM \nThursday 9:00 AM - 12:30 PM"
+  },
+  {
+    "name": "EXPRESSWAY ASSEMBLY OF GOD FOOD PANTRY",
+    "address": "260 EGGERT ROAD, BUFFALO, NY 14215",
+    "phone": "(716) 893-8112",
+    "hours": "Wednesday and Friday 11:00 AM \u2013 1:00 PM; \n3rd Saturday 9:00 AM \u2013 12:00 PM"
+  },
+  {
+    "name": "EVERGREEN HEALTH SERVICES",
+    "address": "206 SOUTH ELMWOOD AVENUE, BUFFALO, NY 14201",
+    "phone": "(716) 847-2441",
+    "hours": "Monday 9:30 AM - 11:30 AM\nTuesday 1:00 - 3:00 PM \nThursday 1:00 - 3:00 PM\nFriday 9:30 - 11:30 AM"
+  },
+  {
+    "name": "CATHOLIC CENTRAL FOOD PANTRY",
+    "address": "350 DEWEY AVENUE, BUFFALO, NY 14214",
+    "phone": "(716) 800-1075",
+    "hours": "Wednesday 9:30 AM - 1:30 PM"
+  },
+  {
+    "name": "HISPANICS UNITED OF BUFFALO",
+    "address": "254 VIRGINIA STREET, BUFFALO, NY 14201",
+    "phone": "(716) 856-7110",
+    "hours": "Tuesday and Thursday, 9:30 AM -1:30 PM"
+  },
+  {
+    "name": "NETWORK OF RELIGIOUS COMMUNITIES",
+    "address": "1272 DELAWARE AVENUE, BUFFALO, NY 14209",
+    "phone": "(716) 882-7705",
+    "hours": "Tuesday 10:00 AM - 2:00 PM; \nWednesday 2:00 PM - 5:30 PM"
+  },
+  {
+    "name": "THE SALVATION ARMY - KENSINGTON",
+    "address": "21 WESTMINSTER AVENUE, BUFFALO, NY 14215",
+    "phone": "(716) 832-2467",
+    "hours": "Monday, Wednesday, Friday 11:30 AM - 2:30 PM"
+  },
+  {
+    "name": "PRIMERA FOOD PANTRY",
+    "address": "62 VIRGINIA STREET, BUFFALO, NY 14201",
+    "phone": "(716) 844-6097",
+    "hours": "Wednesday and Saturday, 9:00 AM - 12:00 PM"
+  },
+  {
+    "name": "CEDAR GROVE FOOD PANTRY",
+    "address": "100 OLD MARYVALE DRIVE, CHEEKTOWAGA, NY 14225",
+    "phone": "(716) 893-8467",
+    "hours": "Tuesday 10:00 AM - 2:00 PM\n3rd Saturday 10:00 AM - 2:00 PM"
+  },
+  {
+    "name": "O.L.V. ST VINCENT DePAUL SOCIETY",
+    "address": "767 RIDGE ROAD, LACKAWANNA, NY 14218",
+    "phone": "(716)828-9444",
+    "hours": "Delivery in Lackawanna only. Please call for delivery availability."
+  },
+  {
+    "name": "BELLE CENTER FOOD PANTRY",
+    "address": "104 MARYLAND STREET, BUFFALO, NY 14201",
+    "phone": "(716) 845-0485",
+    "hours": "Monday thru Friday, 9:30 AM - 12:30 PM"
+  },
+  {
+    "name": "GOOD SHEPHERD FOOD PANTRY",
+    "address": "96 JEWETT PARKWAY, BUFFALO, NY 14214",
+    "phone": "(716) 833-1151",
+    "hours": "Wednesday 10:00 AM - 2:00 PM"
+  },
+  {
+    "name": "CATHOLIC CHARITIES - LACKAWANNA PANTRY",
+    "address": "75 CALDWELL STREET, LACKAWANNA, NY 14218",
+    "phone": "(716) 824-4760",
+    "hours": "Monday and Friday 9:30 AM - 12:00 PM and 12:00 - 2:30 PM"
+  },
+  {
+    "name": "COMMUNITY ACCESS SERVICES OF WNY FOOD PANTRY",
+    "address": "3297 BAILEY AVE., BUFFALO, NY 14215",
+    "phone": "(716) 852-5969",
+    "hours": "Monday thru Thursday 10:00 AM - 1:00 PM and 2:00-3:00 PM"
+  },
+  {
+    "name": "FOOD FARMACY FOOD PANTRY AT D\u2019YOUVILLE HEALTH PROFESSIONS HUB",
+    "address": "301 CONNECTICUT ST., Buffalo, New York 14213",
+    "phone": "(716) 829-7736",
+    "hours": "Tuesday and Thursday 10:00 AM \u2013 2:00 PM"
+  },
+  {
+    "name": "S.B.C. FOUNDATION",
+    "address": "18 CHURCH STREET, LACKAWANNA, NY 14218",
+    "phone": "(716) 826-4940",
+    "hours": "Tuesday 9:30 AM - 1 PM,\nThursday 9:30 AM - 1 PM\nSaturday 9:30 AM - 10:30 AM"
+  },
+  {
+    "name": "ST. LUKE FOOD PANTRY",
+    "address": "900 MARYVALE DRIVE, CHEEKTOWAGA, NY 14225",
+    "phone": "(716) 633-6752",
+    "hours": "Tuesday 10:00 AM - 2:00 PM"
+  },
+  {
+    "name": "WEST SENECA COMMUNITY FOOD PANTRY",
+    "address": "51 ST. DAVIDS DRIVE, WEST SENECA, NY 14224",
+    "phone": "(716) 574-4411",
+    "hours": "Tuesday 9:00 AM - 1:00 PM; \n2nd Saturday 9:00 AM - 12:00 PM;"
+  },
+  {
+    "name": "NORTH BUFFALO FOOD PANTRY",
+    "address": "2 WALLACE AVENUE, BUFFALO, NY 14214",
+    "phone": "(716) 836-1361",
+    "hours": "Saturday 9:00 AM - 1:00 PM \nEmergency hours Monday thru Friday 9:00 AM - 12:00 PM"
+  },
+  {
+    "name": "THE SALVATION ARMY - TEMPLE CORPS",
+    "address": "187 GRANT STREET, BUFFALO, NY 14213",
+    "phone": "(716)886-5772",
+    "hours": "Thursday 9:00 AM - 1:00 PM"
+  },
+  {
+    "name": "UNIVERSITY PRESBYTERIAN CHURCH",
+    "address": "3330 MAIN STREET, BUFFALO, NY 14214",
+    "phone": "(716) 836-7660",
+    "hours": "Tuesday and Thursday, 12:00 PM - 3:00 PM"
+  },
+  {
+    "name": "HEARTS FOOD PANTRY EXPRESS AT UNITED METHODIST CHURCH",
+    "address": "350 SARATOGA RD., BUFFALO, NY 14226",
+    "phone": "(716) 877-3536",
+    "hours": "Monday 12:30 PM - 4:30 PM"
+  },
+  {
+    "name": "PROVISION 139",
+    "address": "44 BRECKENRIDGE ST., BUFFALO, NY 14213",
+    "phone": "(716) 884-6616",
+    "hours": "Wednesday 12:00 PM - 3:00 PM \nThursday 5:00 PM - 7:00 PM"
+  },
+  {
+    "name": "ST. STEPHENS BETHLEHEM UCC",
+    "address": "750 WEHRLE DR., BUFFALO, NY 14207",
+    "phone": "(716) 632-4226",
+    "hours": "Wednesday 1:00-5:00 PM\nSunday 1:00 - 3:00 PM"
+  },
+  {
+    "name": "ST. MARTHA'S PANTRY",
+    "address": "10 FRENCH ROAD, DEPEW, NY 14043",
+    "phone": "(716) 206-0387",
+    "hours": "Monday 6:00 PM - 8:00 PM; \nWednesday and Thursda 9:00 AM - 12:00 PM; \nSaturday 10:00 AM - 12:00 PM"
+  },
+  {
+    "name": "ST. PAULS TIGER'S DEN FOOD PANTRY",
+    "address": "4007 MAIN STREET, EGGERTSVILLE, NY 14226",
+    "phone": "(716) 835-0407",
+    "hours": "Thursday 3:00 PM - 7:00 PM (1st, 3rd and 5th ONLY); \nSaturday 9:00 AM - 1:00 PM (2nd & 4th ONLY)"
+  },
+  {
+    "name": "NATIVE AMERICAN COMMUNITY SERVICES",
+    "address": "1005 GRANT STREET, BUFFALO, NY 14207",
+    "phone": "(716) 874-4460",
+    "hours": "Tuesday and Wednesday, 10:00 AM - 1:00 PM"
+  },
+  {
+    "name": "ST. FAUSTINA'S GATE",
+    "address": "263 CLAREMONT AVENUE, TONAWANDA, NY 14223",
+    "phone": "(716) 837-2544",
+    "hours": "Tuesday and Thursday 11:00 AM - 1:30 PM"
+  },
+  {
+    "name": "HEARTS FOOD PANTRY EXPRESS AT BUFFALO FIRST CHURCH OF THE NAZARENE",
+    "address": "1270 KEMMORE AVE., BUFFALO, NY 14216",
+    "phone": "(716) 877-3536",
+    "hours": "Thursdays 11:00 AM - 3:00 PM"
+  },
+  {
+    "name": "BLASDELL CHURCH OF CHRIST FOOD PANTRY",
+    "address": "67 LAKE AVENUE, BLASDELL, NY 14219",
+    "phone": "(716) 536-2259",
+    "hours": "Monday and Thursday: 9:30 AM - 12:00 PM\n2nd Tuesday: 6:00 PM - 7:00 PM"
+  },
+  {
+    "name": "IGLESIA EL CALVARIO",
+    "address": "211 EAST STREET, BUFFALO, NEW YORK 14207",
+    "phone": "(716) 440-3410",
+    "hours": "Wednesday 10:00 AM - 2:00 PM"
+  },
+  {
+    "name": "TRI COMMUNITY FOOD PANTRY",
+    "address": "722 TERRACE BOULAVARD, DEPEW, NY 14043",
+    "phone": "(716) 289-1370",
+    "hours": "Tuesday 10:30 AM - 1:00 PM\nThursday 5:00 PM - 7:00 PM\nSaturday 9:00 AM - 11:00 AM"
+  },
+  {
+    "name": "TABERNACLE FOOD PANTRY",
+    "address": "3210 SOUTHWESTERN BLVD., ORCHARD PARK, NY 14127",
+    "phone": "(716) 675-2888",
+    "hours": "Wednesday 11:00 AM - 4:00 PM"
+  },
+  {
+    "name": "HEARTS HARVEST FOOD PANTRY",
+    "address": "870 TONAWANDA STREET, BUFFALO, NY 14207",
+    "phone": "(716) 877-3536",
+    "hours": "Tuesday 12:00 PM - 4:00 PM\nFriday 10:00 AM - 2:00 PM"
+  },
+  {
+    "name": "CATHOLIC CHARITIES - KENMORE",
+    "address": "3370 DELAWARE AVE, KENMORE, NY 14217",
+    "phone": "(716) 362-0225",
+    "hours": "Monday and Thursday 9:30 AM - 12:00 PM and 12:30 - 2:30 PM"
+  },
+  {
+    "name": "ST. VINCENT DEPAUL - ST. LEO",
+    "address": "885 SWEET HOME ROAD, AMHERST, NY 14226",
+    "phone": "(716) 800-8020",
+    "hours": "Monday 12:00 PM - 2:00 PM\nWednesday 9:00 AM - 11:00 AM\nSaturday 10:00 AM - 11:30 AM"
+  },
+  {
+    "name": "TRINITY PANTRY",
+    "address": "5448 BROADWAY ST, LANCASTER, NY 14086",
+    "phone": "(716) 683-1111",
+    "hours": "Wednesday, 7:30 AM - 11:00 AM and 5:00 PM - 7:30 PM"
+  },
+  {
+    "name": "NEW COVENANT TABERNACLE",
+    "address": "345 McCONKEY DRIVE, BUFFALO, NY 14223",
+    "phone": "(716) 877-9882",
+    "hours": "Thursdays 12:00 PM - 4:00 PM"
+  },
+  {
+    "name": "ST. VINCENT DEPAUL - ST. AMELIA",
+    "address": "210 ST. AMELIA DRIVE, TOWN OF TONAWANDA, NY 14150",
+    "phone": "(716) 692-2660 ext. 109",
+    "hours": "Tuesday 6:30 - 8:30 PM  \nThursday 1:30 - 3:30 PM\nCall (716) 692-2660 ext. 109 for assistance\nBy Appointment:  Monday, Wednesday, Friday, Saturday"
+  },
+  {
+    "name": "ST. VINCENT DEPAUL ST. TIMOTHY'S",
+    "address": "565 EAST PARK DRIVE, TONAWANDA, NY 14150",
+    "phone": "(716) 939-2018",
+    "hours": "Monday and Thursday: 8:30 AM -11:00 AM"
+  },
+  {
+    "name": "NEW BEGINNINGS FOOD PANTRY",
+    "address": "100 WILLOW RIDGE DRIVE, AMHERST, NY 14228",
+    "phone": "(716) 339-7163",
+    "hours": "Tuesday, 6:00 PM - 8:00 PM;\n2nd & 4th Friday, 9 - 11:00 AM;\n3rd Saturday, 9:45 AM - 11:45 AM;\n1st Friday of each month by appointment, 9-11:00 AM\n\nPantry will be closed whenever the Sweet Home School District is closed due to inclement weather."
+  },
+  {
+    "name": "ST. CHRISTOPHER PARISH PANTRY",
+    "address": "550 ELLICOTT CREEK ROAD, TONAWANDA, NY 14150",
+    "phone": "(716) 564-9023",
+    "hours": "Monday, Wednesday, Thursday 9:00 AM - 1:00 PM"
+  },
+  {
+    "name": "TOWN SQUARE FOOD PANTRY",
+    "address": "2710 N. FOREST ROAD, GETZVILLE, NY 14068",
+    "phone": "(716) 218-1421",
+    "hours": "Temporarily Closed"
+  },
+  {
+    "name": "EVANGEL FOOD PANTRY",
+    "address": "8180 GREINER ROAD, WILLIAMSVILLE, NY 14221",
+    "phone": "716-221-0218",
+    "hours": "Mondays 5:00 a.m. to 3 p.m. by appointment, new clients before 2 p.m.\n\nWednesdays: 6:00 p.m. to 8 p.m., no new clients\n\nSaturdays: 5:00 a.m. to 7 a.m., no new clients\n\nSundays: 8:00 a.m. to 10:00 a.m.. by appointment, no new clients"
+  },
+  {
+    "name": "THE SALVATION ARMY - TONAWANDA",
+    "address": "46 BROAD STREET, TONAWANDA, NY 14150",
+    "phone": "(716) 693-3110",
+    "hours": "Tuesday/Thursday: 9:00 AM - 12:00 PM"
+  },
+  {
+    "name": "ST. VINCENT DEPAUL ST. FRANCIS OF ASSISI",
+    "address": "73 ADAM STREET, TONAWANDA, NY 14150",
+    "phone": "(716) 693-6247",
+    "hours": "Wednesday 9:30 AM - 12:00 PM\nThursday: 6:00 PM - 8:00 PM\n\nUse front door of St. Clare, at 144 Broad St."
+  },
+  {
+    "name": "OLD TIME BAPTIST FOOD PANTRY",
+    "address": "5599 CAMP RD., HAMBURG, NY 14075",
+    "phone": "",
+    "hours": "Thursday and Satruday, 12:00 - 2:00 PM"
+  },
+  {
+    "name": "NIAGARA COMMUNITY ACTION PROGRAM - NORTH TONAWANDA",
+    "address": "265 FALCONER STREET, NORTH TONAWANDA, NY 14120",
+    "phone": "(716) 694-9727",
+    "hours": "Monday, Wednesday, Friday 9:00 AM - 5:00 PM;\nThursday 8:00 AM - 4:00 PM"
+  },
+  {
+    "name": "ST. PETER & PAUL PARISH OUTREACH",
+    "address": "36 PINE STREET, HAMBURG, NY 14075",
+    "phone": "(716) 648-1725",
+    "hours": "Monday thru Thursday: 9:00 AM -12:00 PM and 12:30 - 4:00 PM"
+  },
+  {
+    "name": "NORTH TONAWANDA INTER-CHURCH FOOD PANTRY",
+    "address": "100 RIDGE ROAD, NORTH TONAWANDA, NY 14120",
+    "phone": "(716) 692-8552",
+    "hours": "Monday thru Friday, 10:00 AM - 12:30 PM"
+  },
+  {
+    "name": "FISH OF EAST AURORA, INC.",
+    "address": "960 EAST MAIN STREET, EAST AURORA, NY 14052",
+    "phone": "(716) 652-7272",
+    "hours": "Tuesday & Thursday 1:00 PM - 3:00 PM; \nFirst Saturday 10:00 AM - 12:00 PM"
+  },
+  {
+    "name": "SOUTHTOWNS CHRISTIAN FOOD PANTRY",
+    "address": "6619 SOUTHWESTERN BLVD., LAKEVIEW, NY 14085",
+    "phone": "(716) 627-2183",
+    "hours": "Wednesday 9:00 AM \u2013 1:00 PM\nEmergency hours Monday, Tuesday, Thursday 9:00 AM - 1:00 PM"
+  },
+  {
+    "name": "OPERATION GOOD NEIGHBOR PANTRY",
+    "address": "2063 SOUTH CREEK ROAD, NORTH EVANS, NY 14047",
+    "phone": "(716) 627-5194",
+    "hours": "Monday 12:00 - 3:00 PM\nTuesday 12:30 PM - 5:30 PM"
+  },
+  {
+    "name": "ST. JOHN DE LA SALLE COMMUNITY CARE",
+    "address": "8600 BUFFALO AVE, NIAGARA FALLS, NY 14304",
+    "phone": "(716) 622-5880",
+    "hours": "Monday 10:00 AM - 2:00 PM; \nWednesday 9:00 AM - 3:00 PM; \nFriday 9:00 AM - 12:00 PM"
+  },
+  {
+    "name": "ALDEN-MARILLA FOOD PANTRY",
+    "address": "13021 W. MAIN ST., ALDEN, NY 14004",
+    "phone": "(716) 937-6922",
+    "hours": "Monday 1:00 - 3:00\nFriday 6:30 - 8:30 PM"
+  },
+  {
+    "name": "THE SALVATION ARMY - NIAGARA FALLS",
+    "address": "7018 BUFFALO AVENUE, NIAGARA FALLS, NY 14304",
+    "phone": "(716) 283-7697",
+    "hours": "Monday thru Thursday, 1:00 PM \u2013 3:00 PM"
+  },
+  {
+    "name": "RAYMOND COMMUNITY CHURCH",
+    "address": "6597 RAPIDS ROAD, LOCKPORT, NY 14094",
+    "phone": "(716) 434-3175",
+    "hours": "Thursday, 11:00 AM - 3:00 PM"
+  },
+  {
+    "name": "HEARTS FOOD PANTRY EXPRESS AT THE WAY CHURCH",
+    "address": "2334 LOCKPORT RD, SANBORN, NY 14132",
+    "phone": "",
+    "hours": "3rd Saturday 11:00 AM - 1:00 PM"
+  },
+  {
+    "name": "BREAD OF LIFE OUTREACH",
+    "address": "8745 SUPERVISOR ROAD, COLDEN, NY 14033",
+    "phone": "(716) 941-3550",
+    "hours": "Thursday 3:00 PM - 5:00 PM\nSaturday 9:00 AM - 11:00 AM"
+  },
+  {
+    "name": "COMMUNITY MISSIONS, INC.- PANTRY",
+    "address": "1590 BUFFALO AVENUE, NIAGARA FALLS, NY 14303",
+    "phone": "(716) 285-3403",
+    "hours": "Tuesday, Thursday, and Friday: 1:00 PM - 3:00 PM"
+  },
+  {
+    "name": "NIAGARA COMMUNITY ACTION PROGRAM-ROSE MARRA",
+    "address": "564 19TH STREET, NIAGARA FALLS, NY 14301",
+    "phone": "(716) 282-4375",
+    "hours": "Tues thru Friday, 6:30 AM - 2:30 PM"
+  },
+  {
+    "name": "ST. JOSEPH OUTREACH",
+    "address": "1402 PINE AVENUE, NIAGARA FALLS, NY 14301",
+    "phone": "(716) 282-1379",
+    "hours": "Monday, Tuesday, Wednesday, Friday: 9:00 AM - 11:00 AM"
+  },
+  {
+    "name": "WORD OF LIFE MINISTRIES",
+    "address": "1941 HYDE PARK BLVD, NIAGARA FALLS, NY 14305",
+    "phone": "(716) 297-2951",
+    "hours": "Tuesday and Thursday 10:00 AM - 2:00 PM"
+  },
+  {
+    "name": "HEART, LOVE & SOUL INC. FOOD PANTRY",
+    "address": "939 ONTARIO AVENUE, NIAGARA FALLS, NY 14305",
+    "phone": "(716) 282-5687",
+    "hours": "Monday thru Friday 10:00 AM - 1:00 PM"
+  },
+  {
+    "name": "THE SALVATION ARMY - LOCKPORT",
+    "address": "50 COTTAGE STREET, LOCKPORT, NY 14094",
+    "phone": "(716) 434-1276",
+    "hours": "Monday/Wednesday/Friday: 11:00 AM - 1:00 PM"
+  },
+  {
+    "name": "ALL SAINTS FOOD PANTRY - St. Vincent DePaul Society",
+    "address": "61 WALNUT ST., LOCKPORT, NY 14094",
+    "phone": "(716) 433-0593",
+    "hours": "Tuesday and Thursday, 1:00 PM - 3:00 PM"
+  },
+  {
+    "name": "NIACAP LOCKPORT PANTRY",
+    "address": "180 WASHBURN STREET, LOCKPORT, NY 14094",
+    "phone": "(716) 433-6632",
+    "hours": "--BY APPOINTMENT--\nMonday, Tuesday, Thursday, Friday 8:00 AM - 3:00 PM\n(Closed for lunch from 1:00 - 2:00 PM each day)"
+  },
+  {
+    "name": "EDEN-NORTH COLLINS FOOD PANTRY",
+    "address": "2059 FRANKLIN ST., NORTH COLLINS, NY 14111",
+    "phone": "(716) 374-5683",
+    "hours": "Wednesday 1:00 PM - 5:00 PM"
+  },
+  {
+    "name": "CARE -N- SHARE FOOD PANTRY",
+    "address": "3745 RANSOMVILLE RD., RANSOMVILLE, NY 14131",
+    "phone": "(716) 791-1268",
+    "hours": "Tuesday 3:30-5:30 PM\nThursday 5:00-7:00 PM\nFirst Saturday of the month, 9:00 AM - 12:00 PM"
+  },
+  {
+    "name": "FEED MY SHEEP FOOD PANTRY AT SOLID ROCK ASSEMBLY OF GOD",
+    "address": "8590 ROCHESTER RD., GASPORT, NY 14067",
+    "phone": "(716) 957-2561",
+    "hours": "Thursday 11:00 AM - 3:00 PM"
+  },
+  {
+    "name": "TRIBAL ADVOCATE SENECA NATION",
+    "address": "210 THOMAS INDIAN SCHOOL DRIVE, IRVING, NY 14081",
+    "phone": "(716)532-4900",
+    "hours": "MON-FRI 8:00 AM - 4:30 PM"
+  },
+  {
+    "name": "SOUTHERNTIER FOOD PANTRY @ TRADING POST",
+    "address": "38 FRANKLIN STREET, SPRINGVILLE, NY 14141",
+    "phone": "(716) 592-4455",
+    "hours": "Wednesday, Friday, Saturday 10:00 AM - 12:00 PM"
+  },
+  {
+    "name": "SPRINGVILLE-CONCORD COMMUNITY FOOD PANTRY",
+    "address": "56 EAST MAIN STREET, SPRINGVILLE, NY 14141",
+    "phone": "(716) 592-7414",
+    "hours": "Monday 12:00 PM - 2:00 PM\nThursday 10:00 AM - 12:00 PM\n1st and 3rd Wednesday 6:00 PM - 8:00 PM"
+  },
+  {
+    "name": "NEWFANE COMMUNITY FOOD PANTRY",
+    "address": "3455 EWINGS ROAD, NEWFANE, NY 14108",
+    "phone": "(716) 778-9822",
+    "hours": "Tuesday 9:30 AM - 4:00 PM; \nSUN-MON, WED-SAT: EMERGENCIES"
+  },
+  {
+    "name": "FIRST BAPTIST CHURCH OF NEWFANE",
+    "address": "6047 EAST AVENUE, NEWFANE, NY 14108",
+    "phone": "(716) 778-9216",
+    "hours": "Wednesday 1:00 PM - 6:00 PM\nEmergency hours by appt. Sun-Tues and Thu-Sat."
+  },
+  {
+    "name": "WILSON COMMUNITY FOOD PANTRY",
+    "address": "359 LAKE STREET, WILSON, NY 14172",
+    "phone": "(716) 727-4074",
+    "hours": "Tuesday 2:00 PM - 8:00 PM"
+  },
+  {
+    "name": "SILVER CREEK FOOD PANTRY",
+    "address": "260 CENTRAL AVE., Silver Creek, New York 14136",
+    "phone": "(716) 934-4570",
+    "hours": "Thursday 5:30 PM - 7:30 PM\nFriday 10:00 AM - 12:00 PM"
+  },
+  {
+    "name": "GOWANDA LOVE, INC.",
+    "address": "24 WEST MAIN ST., GOWANDA, NY 14070",
+    "phone": "(716) 532-6130",
+    "hours": "Monday 10:00 AM - 2:00 PM\nThursday 4:00 PM - 6:00 PM\n3rd Saturday 9:00 AM - 12:00 PM"
+  },
+  {
+    "name": "ASHFORD FOOD PANTRY",
+    "address": "5640 FOX VALLEY RD., WEST VALLEY, NY 14171",
+    "phone": "(716) 942-6690",
+    "hours": "1st and 3rd Wednesday 2:00 PM - 7:00 PM\n2nd and 4th Wednesday 12:00 PM - 4:00 PM"
+  },
+  {
+    "name": "DAYTON FOOD PANTRY",
+    "address": "9586 RAILROAD AVE, DAYTON, NY 14041",
+    "phone": "(716) 725-9229",
+    "hours": "Wednesday, Thursday, Saturday 9:00 AM - 1:00 PM"
+  },
+  {
+    "name": "FAITH UNITED METHODIST CHURCH",
+    "address": "1449 QUAKER ROAD, BARKER, NY 14012",
+    "phone": "(716) 795-9945",
+    "hours": "Monday 8:30 AM - 12:00 PM and 1:00 - 3:00 PM"
+  },
+  {
+    "name": "FORESTVILLE FOOD PANTRY, INC.",
+    "address": "3 PARK STREET, FORESTVILLE, NY 14062",
+    "phone": "(716) 965-2655",
+    "hours": "Thursday 10:00 AM - 4:00 PM"
+  },
+  {
+    "name": "NEIGHBOR TO NEIGHBOR FOOD PANTRY",
+    "address": "9497 PROSPECT ROAD, FORESTVILLE, NY 14062",
+    "phone": "(716) 965-2353",
+    "hours": "Tuesday 9:00 AM - 4:30 PM"
+  },
+  {
+    "name": "SOUTH DAYTON FOOD PANTRY",
+    "address": "327 ROUTE 322 (PINE STREET), SOUTH DAYTON, NY 14138",
+    "phone": "(716) 988-3232",
+    "hours": "Monday 8:00 AM - 12:00 PM"
+  },
+  {
+    "name": "ST. ELIZABETH ANN SETON FOOD CLOSET",
+    "address": "328 WASHINGTON AVENUE, DUNKIRK, NY 14048",
+    "phone": "(716) 366-2306",
+    "hours": "Wednesday 3:00 PM - 7:00 PM"
+  },
+  {
+    "name": "CATTARAUGUS FOOD PANTRY",
+    "address": "26 MILL STREET, CATTARAUGUS, NY 14719",
+    "phone": "(716) 229-2008",
+    "hours": "Tuesday 5:30 - 7:00 PM\nWednesday 10:00 - 3:00"
+  },
+  {
+    "name": "THE SALVATION ARMY - DUNKIRK",
+    "address": "704 CENTRAL AVENUE, DUNKIRK, NY 14048",
+    "phone": "(716) 366-3701",
+    "hours": "Tuesday, Wednesday Thursday: 9:00 AM - Noon"
+  },
+  {
+    "name": "THE FRED BASKET",
+    "address": "219 CENTRAL AVE., FREDONIA, NY 14063",
+    "phone": "(716) 679-1501",
+    "hours": "Wednesday 12:30-4:30 PM\n3rd Saturday 10:00 AM-12:00 PM"
+  },
+  {
+    "name": "CATHOLIC CHARITIES - FRANKLINVILLE FOOD PANTRY",
+    "address": "28 PARK SQUARE, FRANKLINVILLE, NY 14737",
+    "phone": "(716) 676-3215",
+    "hours": "Tuesday and Fridays 9:30 AM - 2:30 PM"
+  },
+  {
+    "name": "TWICE FED FOOD PANTRY",
+    "address": "6813 NORTH MAIN STREET, CHERRY CREEK, NY 14723",
+    "phone": "(716) 296-5213",
+    "hours": "Monday 7:00 AM to 11:00 AM"
+  },
+  {
+    "name": "U.C. Of E COMMUNITY FOOD PANTRY",
+    "address": "53 ELIZABETH STREET, ELLICOTTVILLE, NY 14731",
+    "phone": "(716) 699-4003",
+    "hours": "Monday 1:00 PM \u2013 3:00 PM\nWednesday 4:00 PM \u2013 6:00 PM\nSaturday 10:00 AM \u2013 12:00 PM"
+  },
+  {
+    "name": "Little Valley Food Pantry",
+    "address": "207 Rock City Street, Little Valley, New York",
+    "phone": "(623) 377-0159",
+    "hours": "Friday 9:00 AM - 1:00 PM"
+  },
+  {
+    "name": "CASSADAGA FOOD PANTRY",
+    "address": "25 MAPLE AVENUE, CASSADAGA, NY 14718",
+    "phone": "(716) 595-8718",
+    "hours": "Thursday 8:00 AM - 12:00 PM"
+  },
+  {
+    "name": "GREAT VALLEY FOOD PANTRY",
+    "address": "4808 ROUTE 219, GREAT VALLEY, NY 14741",
+    "phone": "(716) 353-2244",
+    "hours": "1st and 4th Thursday 4:00 - 6:00 PM\n1st and 4th Sunday 8:00 - 10:00 AM\n2nd and 3rd Thursday 2:00 - 6:00 PM"
+  },
+  {
+    "name": "SINCLAIRVILLE FOOD PANTRY",
+    "address": "49 SINCLAIR DRIVE, SINCLAIRVILLE, NY 14782",
+    "phone": "(716) 962-2265",
+    "hours": "Tuesday 8:00 a.m. - 12:00 p.m."
+  },
+  {
+    "name": "SENECA NATION FOOD PANTRY",
+    "address": "983 RC HOAG DRIVE, SALAMANCA, NY 14779",
+    "phone": "(716) 945-2655",
+    "hours": "Monday thru Friday, 8:00 AM \u2013 4:00 PM"
+  },
+  {
+    "name": "RANDOLPH COMMUNITY CUPBOARD",
+    "address": "28 JAMESTOWN STREET, RANDOLPH, NY 14772",
+    "phone": "(716)358-4848",
+    "hours": "Tuesday and Thursday 1:00 PM - 3:00 PM\n2nd Saturday 11:00 AM to 1:00 PM"
+  },
+  {
+    "name": "CONNECTING COMMUNITIES IN ACTION (CCA) FOOD PANTRY",
+    "address": "25 JEFFERSON STREET, SALAMANCA, NY 14779",
+    "phone": "(716) 945-1041",
+    "hours": "Monday-Friday, 9:00 a.m. to noon, 1:00 p.m. to 3:00 p.m."
+  },
+  {
+    "name": "BROCTON-PORTLAND FOOD PANTRY",
+    "address": "7081 EAST RTE 20, PORTLAND, NY 14769",
+    "phone": "(716) 326-2492",
+    "hours": "Tuesday and Thursday 1:00 PM - 4:00 PM"
+  },
+  {
+    "name": "HINSDALE / ISCHUA FOOD PANTRY",
+    "address": "3826 MAIN ST, HINSDALE, NY 14743",
+    "phone": "(716) 378-5098",
+    "hours": "Monday 9:00 AM - 11:00 AM\nWednesday 1:00 PM - 3:00 PM"
+  },
+  {
+    "name": "WESTFIELD FOOD PANTRY",
+    "address": "101 EAST MAIN STREET, WESTFIELD, NY 14787",
+    "phone": "(716) 326-3243",
+    "hours": "Tuesday 1:00 PM - 2:30 PM"
+  },
+  {
+    "name": "CREEKSIDE CHAPEL FOOD PANTRY",
+    "address": "2523 FIVE MILE ROAD, ALLEGANY, NY 14706",
+    "phone": "(716) 372-0388",
+    "hours": "Thursday 10:00 AM - 2:00 PM"
+  },
+  {
+    "name": "ST. PAUL'S EPISCOPAL FOOD PANTRY",
+    "address": "99 S. ERIE STREET, MAYVILLE, NY 14757",
+    "phone": "(716) 753-2243",
+    "hours": "Monday, Wednesday, Friday 10:30 AM - 12:30 PM"
+  },
+  {
+    "name": "BETHLEHEM LUTHERAN CHURCH FOOD PANTRY",
+    "address": "20 N PHETTEPLACE STREET, FALCONER, NY 14733",
+    "phone": "(716) 665-2102",
+    "hours": "Tuesday & Thursday 9:00 AM - 11:00 AM"
+  },
+  {
+    "name": "OLEAN FOOD PANTRY",
+    "address": "8 LEO MOSS DRIVE, OLEAN, NY 14760",
+    "phone": "(716) 372-4989",
+    "hours": "Monday 12:30 PM - 4:30 PM; Friday 10:00 AM - 2:00 PM"
+  },
+  {
+    "name": "ST. VINCENT DEPAUL - OLEAN PANTRY",
+    "address": "441 N. UNION STREET, OLEAN, NY 14760",
+    "phone": "(716) 373-0815",
+    "hours": "Monday, Wednesday, Friday: 10:00 AM - 2:45 PM"
+  },
+  {
+    "name": "THE SALVATION ARMY OLEAN CORPS FOOD PANTRY",
+    "address": "328 W. DELAWARE AVE, OLEAN, NY 14760",
+    "phone": "(716) 372-6740",
+    "hours": "Tuesday 10:00 AM - 12:00 PM;\nWednesday and Thursday 10:00 AM - 2:00 PM;"
+  },
+  {
+    "name": "THE SALVATION ARMY - JAMESTOWN",
+    "address": "83 S. MAIN STREET, JAMESTOWN, NY 14701",
+    "phone": "(716) 664-4108",
+    "hours": "Monday thru Friday, 9:30 - 11:30 AM and 1 - 3:30 PM"
+  },
+  {
+    "name": "BREAD OF LIFE FOOD PANTRY HEALING WORD MINISTRIES",
+    "address": "1006 WEST THIRD STREET, JAMESTOWN, NY 14701",
+    "phone": "(716) 483-3687",
+    "hours": "Tuesday 2:30 PM - 5:30 PM\nFriday 11:00 AM - 2:00 PM"
+  },
+  {
+    "name": "TREE OF LIFE FOOD CUPBOARD",
+    "address": "825 FOREST AVENUE, JAMESTOWN, NY 14701",
+    "phone": "(716) 488-4235",
+    "hours": "Wednesday and Friday 10:00 AM - 2:00 PM"
+  },
+  {
+    "name": "FREWSBURG FOOD CUPBOARD",
+    "address": "125 W. MAIN ST., FREWSBURG, NY 14738",
+    "phone": "(716) 569-6153",
+    "hours": "Tuesday 2:00 PM - 6:00 PM"
+  },
+  {
+    "name": "ASHVILLE FOOD PANTRY",
+    "address": "2180 NORTH MAPLE STREET, ASHVILLE, NY 14710",
+    "phone": "(716)763-9747",
+    "hours": "THU 3:30 PM - 5:30 PM; SAT 9:30 AM - 11:30 AM"
+  },
+  {
+    "name": "RIPLEY COMMUNITY COUNCIL FOOD PANTRY",
+    "address": "12 NORTH STATE STREET, RIPLEY, NY 14775",
+    "phone": "(716) 969-8344",
+    "hours": "Tuesday 2:00 PM - 4:00 PM; Saturday 10:00 AM - 12:00 PM"
+  },
+  {
+    "name": "AREA CHRISTIAN ACTION - SHERMAN",
+    "address": "123 WEST MAIN STREET, SHERMAN, NY 14781",
+    "phone": "(716) 761-6978",
+    "hours": "Tuesday 8:00 AM - 12:00 PM \n3rd Saturday 8:30 AM - 12:30 PM"
+  },
+  {
+    "name": "PANAMA UNITED METHODIST CHURCH",
+    "address": "22 EAST MAIN ST., PANAMA, NY 14767",
+    "phone": "(716) 782-3282",
+    "hours": "Monday 9:00 AM \u2013 10:00 AM and 6:00 PM \u2013 7:00 PM; \nThursday 5:00 PM \u2013 7:00 PM"
+  },
+  {
+    "name": "AREA CHRISTIAN ACTION - FINDLEY",
+    "address": "2862 NORTH ROAD, FINDLEY LAKE, NY 14736",
+    "phone": "(716) 769-7532",
+    "hours": "Thursday 9:00 AM - 1:00 PM\n3rd Saturday 8:00 AM - 12:00 PM"
+  },
+  {
+    "name": "AREA CHRISTIAN ACTION - CLYMER",
+    "address": "565 CLYMER SHERMAN ROAD, CLYMER, NY 14724",
+    "phone": "(716) 355-6336",
+    "hours": "Monday 10:00 AM - 2:00 PM\n3rd Saturday 7:30 AM - 9:30 AM"
+  }
+]

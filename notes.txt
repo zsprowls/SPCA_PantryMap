@@ -1,0 +1,87 @@
+########################IMPORTANT CONTEXT#########################
+
+
+Alright.  So we have all of the food pantries in Erie Coutny from FeedMore wny
+
+SPCA_Maps/app.py is an app I built that opens 2 subapps
+        SPCA_Maps/pages/1_Pantry_Map.py
+        SPCA_Maps/pages/2_Vaccine_Map.py
+
+For this app I want to get rid of the vaccine map all together.  The focus of this is exclusively pantry.
+
+
+#########################STEP ONE#########################
+
+So first things first, I want to scrape all of that.  So that is step one
+
+the url is: https://www.feedmorewny.org/programs-services/find-food/pantry-locator/
+but the whole thing has to have a bunch of filters in order to make it work.
+So maybe if there is a way to like run it on an already open browser with the filters applied?
+If not, I guess we can figure out how to manipulate it with the crawler.
+
+Each pantry has the following info (followed by the full xpath of each element we want to scrape)
+
+Name: 
+        /html/body/div[1]/div[3]/div[2]/div/div[15]/div/div[1]/span[1] 
+
+Address - Made up of the following:
+    [
+        /html/body/div[1]/div[3]/div[2]/div/div[15]/div/div[2]/span[1],
+        /html/body/div[1]/div[3]/div[2]/div/div[15]/div/div[2]/span[2],
+        /html/body/div[1]/div[3]/div[2]/div/div[15]/div/div[2]/span[3]
+
+    ]
+
+Phone#: 
+        /html/body/div[1]/div[3]/div[2]/div/div[15]/div/div[2]/span[4]
+
+
+Hours of Operation:
+        /html/body/div[1]/div[3]/div[2]/div/div[15]/div/div[2]/span[8]
+
+
+#########################STEP TWO#########################
+
+Step 2 is cleaning up data from an old app and using it for this one.  
+
+
+The app currently accesses user info and other data through a google drive.  We are going to just have it
+live in this folder now though.  I took out all the personal identifiable information for clients with
+the map.  And we are ultimatley giong to get rid of all of this shit in here anyway.  
+
+To clean this data, we are going to take JUST the PantryMap.csv which now only has 
+        Person ID and Postal Code.
+
+Since we aren't putting a pin in every house, I don't think we need the procesed and geocoded shit maybe?  
+Like can't we just run right off of the PatnryMap.csv (to count total Person ID's in each Postal Cod)
+file and erie_survey_zips.geojson (to layout the zipcodes).  I think the other 2 jsons for pantry data were
+just for putting pins in the map, which we aren't doing now.  
+
+So now that I work through it, the only data cleanup you might have left is deleting
+        SPCA_Maps/Map Data/combined_survey_results.csv
+        SPCA_Maps/Map Data/geocoded_pantry_data.json
+        SPCA_Maps/Map Data/processed_pantry_data.json
+but take a look at all the shit in SPCA_Maps to make sure you don't need it to build out parts 
+of the app before deleting it.
+
+
+#########################STEP THREE#########################
+
+
+Step 3 is generating JUST the choloropleth map from the Pantry_Map app that I already have
+and putting pins for all of the pantries.  They should be like green, pretty big, and have
+like a shopping cart in them or something similar. We aren't going to have that year over year filter
+to show growth, just the total client base as it stands now.
+
+#########################STEP FOUR#########################
+
+Step 4 is testing it by comparing it to the other app and seeing if the chloropleth match up.  
+I gotta do that one on my own.  And if they don't then I start yelling at you.
+
+
+
+
+
+
+
+
