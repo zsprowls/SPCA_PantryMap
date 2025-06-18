@@ -6,6 +6,7 @@ import json
 import geopandas as gpd
 from geopy.geocoders import Nominatim
 from geopy.distance import geodesic
+from streamlit_folium import st_folium
 
 # --- BRANDING ---
 # Force light mode
@@ -177,10 +178,9 @@ if user_location:
 # Add layer control
 folium.LayerControl().add_to(m)
 
-from streamlit_folium import folium_static
 cols = st.columns([1,2,1])
 with cols[1]:
-    folium_static(m, width=1400, height=650)
+    st_folium(m, width=1400, height=650)
 
 # Show nearby pantries as a table if found
 if not nearby_pantries.empty:
