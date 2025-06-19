@@ -85,7 +85,22 @@ else:
         try:
             # Load pantry locations
             pantry_df = pd.read_csv('map_data/geocoded_pantry_locations.csv')
-            st.write(f"✅ Loaded {len(pantry_df)} pantry locations")
+            
+            # Filter out NaN values in latitude/longitude
+            original_count = len(pantry_df)
+            pantry_df = pantry_df.dropna(subset=['latitude', 'longitude'])
+            
+            # Additional validation: ensure coordinates are valid numbers and within reasonable bounds
+            pantry_df = pantry_df[
+                (pantry_df['latitude'].between(40, 45)) &  # Erie County is roughly 42-43°N
+                (pantry_df['longitude'].between(-80, -78))  # Erie County is roughly -79°W
+            ]
+            filtered_count = len(pantry_df)
+            
+            if original_count != filtered_count:
+                st.warning(f"⚠️ Filtered out {original_count - filtered_count} pantry locations with missing or invalid coordinates")
+            
+            st.write(f"✅ Loaded {filtered_count} pantry locations (filtered from {original_count})")
             
             # Load survey data
             with open('map_data/erie_survey_zips.geojson', 'r') as f:
@@ -105,11 +120,22 @@ else:
         
         # Add pantry markers
         for idx, row in pantry_df.iterrows():
-            folium.Marker(
-                location=[row['latitude'], row['longitude']],
-                popup=f"<b>{row['name']}</b><br>{row['address']}",
-                icon=folium.Icon(color='red', icon='info-sign')
-            ).add_to(m)
+            try:
+                lat = float(row['latitude'])
+                lon = float(row['longitude'])
+                
+                # Double-check coordinates are valid
+                if pd.isna(lat) or pd.isna(lon) or not (40 <= lat <= 45) or not (-80 <= lon <= -78):
+                    continue
+                    
+                folium.Marker(
+                    location=[lat, lon],
+                    popup=f"<b>{row['name']}</b><br>{row['address']}",
+                    icon=folium.Icon(color='red', icon='info-sign')
+                ).add_to(m)
+            except (ValueError, TypeError) as e:
+                st.warning(f"⚠️ Skipping invalid coordinates for {row['name']}: {e}")
+                continue
         
         # Add colored circles for survey data
         for feature in survey_data['features']:
