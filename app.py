@@ -146,46 +146,22 @@ if pantry_df is not None and survey_data is not None and zip_counts is not None:
         except (ValueError, TypeError):
             continue
     
-    # Create choropleth with ZIP code boundaries
-    try:
-        # Create GeoDataFrame from survey data
-        gdf = gpd.GeoDataFrame.from_features(survey_data['features'])
-        gdf['ZCTA5CE10'] = gdf['ZCTA5CE10'].astype(str)
-        
-        # Merge with client count data
-        gdf = gdf.merge(zip_counts, on='ZCTA5CE10', how='left')
-        gdf['client_count'] = gdf['client_count'].fillna(0)
-        
-        # Add individual GeoJson polygons instead of Choropleth
-        def style_function(feature):
-            client_count = feature['properties']['client_count']
-            if client_count > 100:
-                return {'fillColor': '#d73027', 'color': '#000000', 'weight': 2, 'fillOpacity': 0.8}
-            elif client_count > 50:
-                return {'fillColor': '#f46d43', 'color': '#000000', 'weight': 2, 'fillOpacity': 0.7}
-            elif client_count > 20:
-                return {'fillColor': '#fdae61', 'color': '#000000', 'weight': 2, 'fillOpacity': 0.6}
-            elif client_count > 5:
-                return {'fillColor': '#fee08b', 'color': '#000000', 'weight': 2, 'fillOpacity': 0.5}
-            elif client_count > 0:
-                return {'fillColor': '#ffffcc', 'color': '#000000', 'weight': 2, 'fillOpacity': 0.4}
-            else:
-                return {'fillColor': '#ffffff', 'color': '#666666', 'weight': 2, 'fillOpacity': 0.1}
-        
-        folium.GeoJson(
-            gdf.__geo_interface__,
-            style_function=style_function,
-            tooltip=folium.GeoJsonTooltip(
-                fields=['ZCTA5CE10', 'client_count'],
-                aliases=['ZIP Code', 'SPCA Clients'],
-                localize=True,
-                sticky=False,
-                labels=True
-            )
-        ).add_to(m)
-        
-    except Exception as e:
-        st.error(f"❌ Choropleth failed: {e}")
+    # Add simple folium Choropleth for better performance
+    folium.Choropleth(
+        geo_data=survey_data,
+        name='choropleth',
+        data=zip_counts,
+        columns=['ZCTA5CE10', 'client_count'],
+        key_on='feature.properties.ZCTA5CE10',
+        fill_color='Reds',
+        fill_opacity=0.7,
+        line_opacity=0.8,
+        line_weight=2,
+        line_color='#000000',
+        legend_name='SPCA Clients',
+        highlight=True,
+        smooth_factor=0
+    ).add_to(m)
     
     # Display map with proper sizing
     st_folium(m, use_container_width=True, height=600)
