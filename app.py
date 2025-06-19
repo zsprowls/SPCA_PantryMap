@@ -7,6 +7,8 @@ import geopandas as gpd
 from geopy.geocoders import Nominatim
 from geopy.distance import geodesic
 from streamlit_folium import st_folium
+import plotly.express as px
+import plotly.graph_objects as go
 
 # --- BRANDING ---
 # Force light mode
@@ -119,113 +121,83 @@ gdf['ZCTA5CE10'] = gdf['ZCTA5CE10'].astype(str)
 gdf = gdf.merge(zip_counts, on='ZCTA5CE10', how='left')
 gdf['count'] = gdf['count'].fillna(0)
 
-# Create a Folium map centered on Erie County
-m = folium.Map(location=[42.8864, -78.8784], zoom_start=9, tiles='OpenStreetMap')
-
-# Add choropleth layer (memory-optimized for Streamlit Cloud)
+# Create Plotly choropleth map
 try:
     st.write(f"Creating choropleth with {len(gdf)} ZIP codes...")
+    st.write(f"Sample data: {gdf[['ZCTA5CE10', 'count']].head()}")
     
-    # Filter to only ZIP codes with data to reduce memory usage
-    gdf_with_data = gdf[gdf['count'] > 0].copy()
-    st.write(f"ZIP codes with data: {len(gdf_with_data)}")
-    st.write(f"Sample data: {gdf_with_data[['ZCTA5CE10', 'count']].head()}")
+    # Create the choropleth map using Plotly
+    fig = px.choropleth_mapbox(
+        gdf,
+        geojson=erie_zips,
+        locations='ZCTA5CE10',
+        featureidkey="properties.ZCTA5CE10",
+        color='count',
+        color_continuous_scale="YlOrRd",
+        mapbox_style="carto-positron",
+        zoom=9,
+        center={"lat": 42.8864, "lon": -78.8784},
+        opacity=0.7,
+        title="Pet Pantry Clients by ZIP Code"
+    )
     
-    if len(gdf_with_data) > 0:
-        # Create a simpler choropleth with only data-containing ZIP codes
-        folium.Choropleth(
-            geo_data=gdf_with_data.__geo_interface__,
-            data=gdf_with_data,
-            columns=['ZCTA5CE10', 'count'],
-            key_on='feature.properties.ZCTA5CE10',
-            fill_color='YlOrRd',
-            fill_opacity=0.7,
-            line_opacity=0.2,
-            legend_name='Pet Pantry Client Count'
-        ).add_to(m)
-        
-        st.success("✅ Choropleth added successfully!")
-    else:
-        st.warning("No ZIP codes with data found")
+    fig.update_layout(
+        mapbox_bounds={
+            "west": -80.5,
+            "east": -77.5,
+            "south": 41.8,
+            "north": 43.4
+        },
+        margin={"r":0,"t":30,"l":0,"b":0}
+    )
+    
+    # Add pantry locations as scatter points
+    fig.add_trace(go.Scattermapbox(
+        lat=pantry_data['latitude'],
+        lon=pantry_data['longitude'],
+        mode='markers',
+        marker=dict(
+            size=12,
+            color='green',
+            symbol='shopping-cart'
+        ),
+        text=pantry_data['hover_text'],
+        hoverinfo='text',
+        name='Food Pantries'
+    ))
+    
+    st.success("✅ Map created successfully!")
+    st.plotly_chart(fig, use_container_width=True, config={'scrollZoom': True})
     
 except Exception as e:
-    st.error(f"❌ Choropleth failed: {e}")
+    st.error(f"❌ Map creation failed: {e}")
     st.write("Continuing with just the pins...")
     
-    # Fallback: add colored circles if choropleth fails
+    # Fallback: create simple folium map with pins
     try:
-        st.write("Adding colored circles as fallback...")
-        for _, row in gdf.iterrows():
-            if row['count'] > 0:
-                center = row['geometry'].centroid
-                if row['count'] > 10:
-                    color = 'red'
-                    radius = 2000
-                elif row['count'] > 5:
-                    color = 'orange'
-                    radius = 1500
-                else:
-                    color = 'yellow'
-                    radius = 1000
-                
-                folium.Circle(
-                    location=[center.y, center.x],
-                    radius=radius,
-                    color=color,
-                    fill=True,
-                    fill_opacity=0.6,
-                    popup=f"ZIP: {row['ZCTA5CE10']}<br>Client Count: {int(row['count'])}",
-                    tooltip=f"ZIP {row['ZCTA5CE10']}: {int(row['count'])} clients"
-                ).add_to(m)
-        st.success("✅ Fallback circles added!")
+        m = folium.Map(location=[42.8864, -78.8784], zoom_start=9, tiles='OpenStreetMap')
+        
+        # Add pantry pins
+        marker_cluster = MarkerCluster().add_to(m)
+        for _, row in pantry_data.iterrows():
+            marker = folium.Marker(
+                location=[row['latitude'], row['longitude']],
+                popup=folium.Popup(row['hover_text'], max_width=300),
+                tooltip=folium.Tooltip(row['hover_text'], sticky=True),
+                icon=folium.Icon(color='green', icon='shopping-cart', prefix='fa')
+            )
+            marker.add_to(marker_cluster)
+        
+        st_folium(m, width=1400, height=650, returned_objects=[])
+        st.success("✅ Fallback map displayed!")
+        
     except Exception as e2:
         st.error(f"❌ Fallback also failed: {e2}")
-
-# Add clustered pantry pins with hover tooltips
-marker_cluster = MarkerCluster().add_to(m)
-for _, row in pantry_data.iterrows():
-    marker = folium.Marker(
-        location=[row['latitude'], row['longitude']],
-        popup=folium.Popup(row['hover_text'], max_width=300),
-        tooltip=folium.Tooltip(row['hover_text'], sticky=True),
-        icon=folium.Icon(color='green', icon='shopping-cart', prefix='fa')
-    )
-    if not nearby_pantries.empty and row['name'] in nearby_pantries['name'].values:
-        marker.add_to(marker_cluster)
-        folium.Circle(
-            location=[row['latitude'], row['longitude']],
-            radius=250,
-            color='#7ac143',
-            fill=True,
-            fill_opacity=0.2
-        ).add_to(m)
-    else:
-        marker.add_to(marker_cluster)
-
-# Add user location marker if found
-if user_location:
-    folium.Marker(
-        location=user_location,
-        icon=folium.Icon(color='blue', icon='user', prefix='fa'),
-        popup="Your Location"
-    ).add_to(m)
-
-# Add layer control
-folium.LayerControl().add_to(m)
-
-# Display the map
-try:
-    st.write("Rendering map...")
-    st_folium(m, width=1400, height=650, returned_objects=[])
-    st.success("✅ Map rendered successfully!")
-except Exception as e:
-    st.error(f"Error displaying map: {str(e)}")
-    st.info("Please refresh the page or try again later.")
-    # Fallback: show map data as text
-    st.write("Map data loaded successfully:")
-    st.write(f"Number of pantry locations: {len(pantry_data)}")
-    st.write(f"Number of ZIP codes: {len(gdf)}")
-    st.write(f"ZIP code data sample: {gdf[['ZCTA5CE10', 'count']].head()}")
+        # Show data as text
+        st.write("Map data loaded successfully:")
+        st.write(f"Number of pantry locations: {len(pantry_data)}")
+        st.write(f"Number of ZIP codes: {len(gdf)}")
+        st.write(f"ZIP code data sample: {gdf[['ZCTA5CE10', 'count']].head()}")
 
 # Show nearby pantries as a table if found
 if not nearby_pantries.empty:
