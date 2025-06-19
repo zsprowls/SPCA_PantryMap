@@ -160,17 +160,17 @@ if pantry_df is not None and survey_data is not None and zip_counts is not None:
         def style_function(feature):
             client_count = feature['properties']['client_count']
             if client_count > 100:
-                return {'fillColor': '#d73027', 'color': '#000000', 'weight': 1, 'fillOpacity': 0.8}
+                return {'fillColor': '#d73027', 'color': '#000000', 'weight': 2, 'fillOpacity': 0.8}
             elif client_count > 50:
-                return {'fillColor': '#f46d43', 'color': '#000000', 'weight': 1, 'fillOpacity': 0.7}
+                return {'fillColor': '#f46d43', 'color': '#000000', 'weight': 2, 'fillOpacity': 0.7}
             elif client_count > 20:
-                return {'fillColor': '#fdae61', 'color': '#000000', 'weight': 1, 'fillOpacity': 0.6}
+                return {'fillColor': '#fdae61', 'color': '#000000', 'weight': 2, 'fillOpacity': 0.6}
             elif client_count > 5:
-                return {'fillColor': '#fee08b', 'color': '#000000', 'weight': 1, 'fillOpacity': 0.5}
+                return {'fillColor': '#fee08b', 'color': '#000000', 'weight': 2, 'fillOpacity': 0.5}
             elif client_count > 0:
-                return {'fillColor': '#ffffcc', 'color': '#000000', 'weight': 1, 'fillOpacity': 0.4}
+                return {'fillColor': '#ffffcc', 'color': '#000000', 'weight': 2, 'fillOpacity': 0.4}
             else:
-                return {'fillColor': '#ffffff', 'color': '#cccccc', 'weight': 1, 'fillOpacity': 0.2}
+                return {'fillColor': '#ffffff', 'color': '#666666', 'weight': 2, 'fillOpacity': 0.1}
         
         folium.GeoJson(
             gdf.__geo_interface__,
