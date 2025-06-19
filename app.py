@@ -150,31 +150,29 @@ else:
                 tooltip_content = f"""
                 <div style="
                     font-family: Arial, sans-serif; 
-                    max-width: 200px; 
+                    max-width: 180px; 
                     word-wrap: break-word; 
                     overflow-wrap: break-word;
-                    line-height: 1.3;
+                    line-height: 1.2;
+                    font-size: 11px;
                 ">
-                    <h4 style="
-                        margin: 0 0 8px 0; 
+                    <div style="
+                        font-weight: bold; 
                         color: #2E8B57; 
-                        font-size: 14px; 
-                        font-weight: bold;
+                        font-size: 12px; 
+                        margin-bottom: 4px;
                         border-bottom: 1px solid #2E8B57;
-                        padding-bottom: 4px;
-                    ">{row['name']}</h4>
-                    <p style="margin: 4px 0; font-size: 11px; line-height: 1.2;">
-                        <strong>📍 Address:</strong><br>
-                        <span style="word-break: break-word;">{row['address']}</span>
-                    </p>
-                    <p style="margin: 4px 0; font-size: 11px; line-height: 1.2;">
-                        <strong>📞 Phone:</strong><br>
-                        {row['phone']}
-                    </p>
-                    <p style="margin: 4px 0; font-size: 11px; line-height: 1.2;">
-                        <strong>🕒 Hours:</strong><br>
-                        <span style="word-break: break-word;">{row['hours']}</span>
-                    </p>
+                        padding-bottom: 2px;
+                    ">{row['name']}</div>
+                    <div style="margin: 2px 0;">
+                        <strong>📍</strong> {row['address']}
+                    </div>
+                    <div style="margin: 2px 0;">
+                        <strong>📞</strong> {row['phone']}
+                    </div>
+                    <div style="margin: 2px 0;">
+                        <strong>🕒</strong> {row['hours']}
+                    </div>
                 </div>
                 """
                 
@@ -237,20 +235,21 @@ else:
                 style_function=style_function,
                 tooltip=folium.GeoJsonTooltip(
                     fields=['ZCTA5CE10', 'client_count'],
-                    aliases=['ZIP Code', 'SPCA Clients'],
+                    aliases=['ZIP', 'Clients'],
                     localize=True,
                     sticky=False,
                     labels=True,
                     style="""
-                        background-color: #2E8B57;
+                        background-color: rgba(46, 139, 87, 0.9);
                         color: white;
-                        border: 2px solid #5E6D40;
-                        border-radius: 8px;
-                        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+                        border: 1px solid #5E6D40;
+                        border-radius: 4px;
+                        box-shadow: 0 1px 3px rgba(0,0,0,0.2);
                         font-family: Arial, sans-serif;
-                        font-size: 12px;
-                        font-weight: bold;
-                        padding: 8px 12px;
+                        font-size: 10px;
+                        font-weight: normal;
+                        padding: 4px 6px;
+                        max-width: 120px;
                     """
                 )
             ).add_to(m)
