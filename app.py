@@ -78,7 +78,6 @@ def load_data():
         pantry_df = pd.read_csv('map_data/geocoded_pantry_locations.csv')
         
         # Filter out NaN values in latitude/longitude
-        original_count = len(pantry_df)
         pantry_df = pantry_df.dropna(subset=['latitude', 'longitude'])
         
         # Additional validation: ensure coordinates are valid numbers and within reasonable bounds
@@ -86,12 +85,6 @@ def load_data():
             (pantry_df['latitude'].between(40, 45)) &  # Erie County is roughly 42-43°N
             (pantry_df['longitude'].between(-80, -78))  # Erie County is roughly -79°W
         ]
-        filtered_count = len(pantry_df)
-        
-        if original_count != filtered_count:
-            st.warning(f"⚠️ Filtered out {original_count - filtered_count} pantry locations with missing or invalid coordinates")
-        
-        st.write(f"✅ Loaded {filtered_count} pantry locations (filtered from {original_count})")
         
         # Load survey data for ZIP boundaries
         with open('map_data/erie_survey_zips.geojson', 'r') as f:
@@ -110,9 +103,6 @@ def load_data():
         pantry_map['Postal Code'] = pantry_map['Postal Code'].apply(clean_zip)
         zip_counts = pantry_map['Postal Code'].value_counts().reset_index()
         zip_counts.columns = ['ZCTA5CE10', 'client_count']
-        
-        st.write(f"✅ Loaded survey data with {len(survey_data['features'])} zip codes")
-        st.write(f"✅ Loaded client data with {len(zip_counts)} zip codes that have clients")
         
         return pantry_df, survey_data, zip_counts
     except Exception as e:
@@ -153,8 +143,7 @@ if pantry_df is not None and survey_data is not None and zip_counts is not None:
                 icon=folium.Icon(color='green', icon='shopping-cart', prefix='fa')
             ).add_to(marker_cluster)
             
-        except (ValueError, TypeError) as e:
-            st.warning(f"⚠️ Skipping invalid coordinates for {row['name']}: {e}")
+        except (ValueError, TypeError):
             continue
     
     # Create choropleth with ZIP code boundaries
