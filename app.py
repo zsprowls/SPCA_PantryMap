@@ -122,24 +122,31 @@ gdf['count'] = gdf['count'].fillna(0)
 # Create a Folium map centered on Erie County
 m = folium.Map(location=[42.8864, -78.8784], zoom_start=9, tiles='OpenStreetMap')
 
-# Add choropleth layer (simplified approach for Streamlit Cloud compatibility)
+# Add choropleth layer (memory-optimized for Streamlit Cloud)
 try:
     st.write(f"Creating choropleth with {len(gdf)} ZIP codes...")
-    st.write(f"Sample data: {gdf[['ZCTA5CE10', 'count']].head()}")
     
-    # Create a simpler choropleth with minimal parameters
-    folium.Choropleth(
-        geo_data=gdf.__geo_interface__,
-        data=gdf,
-        columns=['ZCTA5CE10', 'count'],
-        key_on='feature.properties.ZCTA5CE10',
-        fill_color='YlOrRd',
-        fill_opacity=0.7,
-        line_opacity=0.2,
-        legend_name='Pet Pantry Client Count'
-    ).add_to(m)
+    # Filter to only ZIP codes with data to reduce memory usage
+    gdf_with_data = gdf[gdf['count'] > 0].copy()
+    st.write(f"ZIP codes with data: {len(gdf_with_data)}")
+    st.write(f"Sample data: {gdf_with_data[['ZCTA5CE10', 'count']].head()}")
     
-    st.success("✅ Choropleth added successfully!")
+    if len(gdf_with_data) > 0:
+        # Create a simpler choropleth with only data-containing ZIP codes
+        folium.Choropleth(
+            geo_data=gdf_with_data.__geo_interface__,
+            data=gdf_with_data,
+            columns=['ZCTA5CE10', 'count'],
+            key_on='feature.properties.ZCTA5CE10',
+            fill_color='YlOrRd',
+            fill_opacity=0.7,
+            line_opacity=0.2,
+            legend_name='Pet Pantry Client Count'
+        ).add_to(m)
+        
+        st.success("✅ Choropleth added successfully!")
+    else:
+        st.warning("No ZIP codes with data found")
     
 except Exception as e:
     st.error(f"❌ Choropleth failed: {e}")
