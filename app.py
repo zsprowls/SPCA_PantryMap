@@ -137,6 +137,14 @@ else:
         # Add pantry markers with clustering
         marker_cluster = MarkerCluster().add_to(m)
         
+        # Build detailed hover text for each pantry
+        pantry_df['hover_text'] = (
+            '<b>' + pantry_df['name'].astype(str) + '</b><br>' +
+            pantry_df['address'].astype(str) + '<br>' +
+            'Phone: ' + pantry_df['phone'].astype(str) + '<br>' +
+            'Hours: ' + pantry_df['hours'].astype(str)
+        )
+        
         for idx, row in pantry_df.iterrows():
             try:
                 lat = float(row['latitude'])
@@ -146,31 +154,11 @@ else:
                 if pd.isna(lat) or pd.isna(lon) or not (40 <= lat <= 45) or not (-80 <= lon <= -78):
                     continue
                 
-                # Create tooltip content
-                tooltip_content = f"""
-                <div style="font-family: Arial, sans-serif; max-width: 250px;">
-                    <h4 style="margin: 0 0 5px 0; color: #2E8B57;">{row['name']}</h4>
-                    <p style="margin: 2px 0; font-size: 12px;"><strong>Address:</strong> {row['address']}</p>
-                    <p style="margin: 2px 0; font-size: 12px;"><strong>Phone:</strong> {row['phone']}</p>
-                    <p style="margin: 2px 0; font-size: 12px;"><strong>Hours:</strong> {row['hours']}</p>
-                </div>
-                """
-                
-                # Create popup content (for clicking)
-                popup_content = f"""
-                <div style="font-family: Arial, sans-serif; max-width: 300px;">
-                    <h3 style="margin: 0 0 10px 0; color: #2E8B57; border-bottom: 2px solid #2E8B57; padding-bottom: 5px;">{row['name']}</h3>
-                    <p style="margin: 5px 0;"><strong>📍 Address:</strong><br>{row['address']}</p>
-                    <p style="margin: 5px 0;"><strong>📞 Phone:</strong><br>{row['phone']}</p>
-                    <p style="margin: 5px 0;"><strong>🕒 Hours:</strong><br>{row['hours']}</p>
-                </div>
-                """
-                
-                # Add marker to cluster
+                # Add marker to cluster with original working tooltip
                 folium.Marker(
                     location=[lat, lon],
-                    popup=folium.Popup(popup_content, max_width=350),
-                    tooltip=folium.Tooltip(tooltip_content, permanent=False),
+                    popup=folium.Popup(row['hover_text'], max_width=300),
+                    tooltip=folium.Tooltip(row['hover_text'], sticky=True),
                     icon=folium.Icon(color='green', icon='shopping-cart', prefix='fa')
                 ).add_to(marker_cluster)
                 
