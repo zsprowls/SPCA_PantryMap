@@ -134,7 +134,9 @@ else:
         # Create map
         m = folium.Map(location=[42.8864, -78.8784], zoom_start=9)
         
-        # Add pantry markers
+        # Add pantry markers with clustering
+        marker_cluster = MarkerCluster().add_to(m)
+        
         for idx, row in pantry_df.iterrows():
             try:
                 lat = float(row['latitude'])
@@ -164,13 +166,13 @@ else:
                 </div>
                 """
                 
-                # Add marker with tooltip and popup
+                # Add marker to cluster
                 folium.Marker(
                     location=[lat, lon],
                     popup=folium.Popup(popup_content, max_width=350),
                     tooltip=folium.Tooltip(tooltip_content, permanent=False),
                     icon=folium.Icon(color='green', icon='shopping-cart', prefix='fa')
-                ).add_to(m)
+                ).add_to(marker_cluster)
                 
             except (ValueError, TypeError) as e:
                 st.warning(f"⚠️ Skipping invalid coordinates for {row['name']}: {e}")
@@ -211,7 +213,7 @@ else:
         with col1:
             st.subheader("Map Legend")
             st.markdown("""
-            **🛒 Food Pantry Locations** - Green shopping cart icons
+            **🛒 Food Pantry Locations** - Green shopping cart icons (clustered when zoomed out)
             """)
             
             st.markdown("**SPCA Client Density by ZIP Code (Choropleth):**")
