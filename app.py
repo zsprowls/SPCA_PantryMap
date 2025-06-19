@@ -135,7 +135,7 @@ if pantry_df is not None and survey_data is not None and zip_counts is not None:
     m = folium.Map(
         location=[42.8864, -78.8784], 
         zoom_start=9,
-        tiles='OpenStreetMap',
+        tiles='CartoDB positron',
         prefer_canvas=True,
         zoom_control=True,
         scrollWheelZoom=True,
