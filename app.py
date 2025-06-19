@@ -128,20 +128,20 @@ else:
                 if pd.isna(lat) or pd.isna(lon) or not (40 <= lat <= 45) or not (-80 <= lon <= -78):
                     continue
                 
-                # Create custom icon for food pantries
+                # Create custom icon for food pantries (green grocery cart)
                 icon_html = '''
                 <div style="
                     background-color: #2E8B57;
                     border: 2px solid white;
                     border-radius: 50%;
-                    width: 20px;
-                    height: 20px;
+                    width: 24px;
+                    height: 24px;
                     display: flex;
                     align-items: center;
                     justify-content: center;
                     box-shadow: 0 2px 4px rgba(0,0,0,0.3);
                 ">
-                    <span style="color: white; font-size: 12px; font-weight: bold;">🍽️</span>
+                    <span style="color: white; font-size: 14px; font-weight: bold;">🛒</span>
                 </div>
                 '''
                 
@@ -194,23 +194,23 @@ else:
                 # Convert to lat/lon pairs
                 lat_lon_pairs = [[coord[1], coord[0]] for coord in coordinates]
                 
-                # Color based on client count with better color scheme
+                # Color based on client count with red gradient
                 client_count = properties.get('client_count', 0)
                 if client_count > 100:
                     color = '#d73027'  # Dark red
-                    fill_opacity = 0.7
+                    fill_opacity = 0.8
                 elif client_count > 50:
-                    color = '#fc8d59'  # Orange
-                    fill_opacity = 0.6
+                    color = '#f46d43'  # Red
+                    fill_opacity = 0.7
                 elif client_count > 20:
-                    color = '#fee08b'  # Yellow
-                    fill_opacity = 0.5
+                    color = '#fdae61'  # Light red
+                    fill_opacity = 0.6
                 elif client_count > 5:
-                    color = '#d9ef8b'  # Light green
-                    fill_opacity = 0.4
+                    color = '#fee08b'  # Very light red
+                    fill_opacity = 0.5
                 else:
-                    color = '#91cf60'  # Green
-                    fill_opacity = 0.3
+                    color = '#ffffcc'  # Almost white
+                    fill_opacity = 0.4
                 
                 folium.Polygon(
                     locations=lat_lon_pairs,
@@ -231,16 +231,16 @@ else:
         with col1:
             st.subheader("Map Legend")
             st.markdown("""
-            **🍽️ Food Pantry Locations** - Green circles with fork/knife icon
+            **🛒 Food Pantry Locations** - Green circles with grocery cart icon
             """)
             
-            st.markdown("**SPCA Client Density by ZIP Code:**")
+            st.markdown("**SPCA Client Density by ZIP Code (Red Gradient):**")
             legend_data = [
                 ("#d73027", "100+ clients", "Very High"),
-                ("#fc8d59", "51-100 clients", "High"), 
-                ("#fee08b", "21-50 clients", "Medium"),
-                ("#d9ef8b", "6-20 clients", "Low"),
-                ("#91cf60", "1-5 clients", "Very Low")
+                ("#f46d43", "51-100 clients", "High"), 
+                ("#fdae61", "21-50 clients", "Medium"),
+                ("#fee08b", "6-20 clients", "Low"),
+                ("#ffffcc", "1-5 clients", "Very Low")
             ]
             
             for color, range_text, level in legend_data:
