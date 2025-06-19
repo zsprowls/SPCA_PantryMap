@@ -9,12 +9,12 @@ from geopy.distance import geodesic
 from streamlit_folium import st_folium
 import os
 
-# Force light mode and set page config with collapsed sidebar
+# Force light mode and set page config with expanded sidebar
 st.set_page_config(
     page_title="SPCA Client Density & Food Pantry Map", 
     page_icon="🐾", 
     layout="wide",
-    initial_sidebar_state="collapsed"
+    initial_sidebar_state="expanded"
 )
 
 # Main app code
