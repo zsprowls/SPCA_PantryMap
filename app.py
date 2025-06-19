@@ -194,26 +194,44 @@ else:
             st.write(f"Client count range: {gdf['client_count'].min()} to {gdf['client_count'].max()}")
             st.write(f"ZIP codes with clients: {(gdf['client_count'] > 0).sum()}")
             
-            # Add choropleth layer
-            folium.Choropleth(
-                geo_data=gdf.__geo_interface__,
-                data=gdf,
-                columns=['ZCTA5CE10', 'client_count'],
-                key_on='feature.properties.ZCTA5CE10',
-                fill_color='Reds',
-                fill_opacity=0.7,
-                line_opacity=0.8,
-                line_weight=1,
-                legend_name='SPCA Client Count',
-                nan_fill_color='white',
-                highlight=True,
-                smooth_factor=0
+            # Add individual GeoJson polygons instead of Choropleth
+            def style_function(feature):
+                client_count = feature['properties']['client_count']
+                if client_count > 100:
+                    return {'fillColor': '#d73027', 'color': '#000000', 'weight': 1, 'fillOpacity': 0.8}
+                elif client_count > 50:
+                    return {'fillColor': '#f46d43', 'color': '#000000', 'weight': 1, 'fillOpacity': 0.7}
+                elif client_count > 20:
+                    return {'fillColor': '#fdae61', 'color': '#000000', 'weight': 1, 'fillOpacity': 0.6}
+                elif client_count > 5:
+                    return {'fillColor': '#fee08b', 'color': '#000000', 'weight': 1, 'fillOpacity': 0.5}
+                elif client_count > 0:
+                    return {'fillColor': '#ffffcc', 'color': '#000000', 'weight': 1, 'fillOpacity': 0.4}
+                else:
+                    return {'fillColor': '#ffffff', 'color': '#cccccc', 'weight': 1, 'fillOpacity': 0.2}
+            
+            folium.GeoJson(
+                gdf.__geo_interface__,
+                style_function=style_function,
+                tooltip=folium.GeoJsonTooltip(
+                    fields=['ZCTA5CE10', 'client_count'],
+                    aliases=['ZIP Code', 'SPCA Clients'],
+                    localize=True,
+                    sticky=False,
+                    labels=True,
+                    style="""
+                        background-color: yellow;
+                        border: 2px solid black;
+                        border-radius: 3px;
+                        box-shadow: 3px;
+                    """
+                )
             ).add_to(m)
             
-            st.success("✅ Choropleth added successfully!")
+            st.success("✅ GeoJson choropleth added successfully!")
             
         except Exception as e:
-            st.error(f"❌ Choropleth failed: {e}")
+            st.error(f"❌ GeoJson choropleth failed: {e}")
             st.write("Falling back to colored circles...")
             
             # Fallback to colored circles
