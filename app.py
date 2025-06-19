@@ -56,25 +56,6 @@ st.markdown(
         margin-top: 0;
         margin-bottom: 2em;
     }
-    /* Prevent map flashing/haze */
-    .folium-map {
-        background-color: transparent !important;
-    }
-    .leaflet-container {
-        background-color: transparent !important;
-    }
-    .leaflet-pane {
-        background-color: transparent !important;
-    }
-    /* Prevent white flash during map interactions */
-    .leaflet-fade-anim .leaflet-tile,
-    .leaflet-fade-anim .leaflet-popup {
-        opacity: 1 !important;
-        transition: none !important;
-    }
-    .leaflet-zoom-anim .leaflet-zoom-animated {
-        transition: none !important;
-    }
     </style>
     """,
     unsafe_allow_html=True
@@ -135,20 +116,7 @@ if pantry_df is not None and survey_data is not None and zip_counts is not None:
     m = folium.Map(
         location=[42.8864, -78.8784], 
         zoom_start=9,
-        tiles='CartoDB positron',
-        prefer_canvas=True,
-        zoom_control=True,
-        scrollWheelZoom=True,
-        dragging=True,
-        touchZoom=True,
-        doubleClickZoom=True,
-        boxZoom=True,
-        keyboard=True,
-        tap=True,
-        min_zoom=7,
-        max_zoom=15,
-        zoom_snap=1,
-        zoom_delta=1
+        tiles='CartoDB positron'
     )
     
     # Add pantry markers with clustering
