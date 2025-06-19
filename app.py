@@ -218,18 +218,7 @@ else:
                     aliases=['ZIP Code', 'SPCA Clients'],
                     localize=True,
                     sticky=False,
-                    labels=True,
-                    style="""
-                        background-color: #2E8B57;
-                        color: white;
-                        border: 2px solid #5E6D40;
-                        border-radius: 8px;
-                        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-                        font-family: Arial, sans-serif;
-                        font-size: 12px;
-                        font-weight: bold;
-                        padding: 8px 12px;
-                    """
+                    labels=True
                 )
             ).add_to(m)
             
