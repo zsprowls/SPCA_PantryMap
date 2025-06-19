@@ -188,7 +188,7 @@ if pantry_df is not None and survey_data is not None and zip_counts is not None:
         st.error(f"❌ Choropleth failed: {e}")
     
     # Display map with proper sizing
-    st_folium(m, width=1000, height=600)
+    st_folium(m, use_container_width=True, height=600)
     
     # Add legend
     st.markdown("---")
