@@ -148,22 +148,11 @@ else:
                 
                 # Create tooltip content
                 tooltip_content = f"""
-                <div style="
-                    font-family: Arial, sans-serif; 
-                    max-width: 200px; 
-                    word-wrap: break-word; 
-                    overflow-wrap: break-word;
-                    line-height: 1.2;
-                    background-color: white;
-                    border: 1px solid #ccc;
-                    border-radius: 4px;
-                    padding: 6px;
-                    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-                ">
-                    <h4 style="margin: 0 0 4px 0; color: #2E8B57; font-size: 13px;">{row['name']}</h4>
-                    <p style="margin: 2px 0; font-size: 11px; word-break: break-word;"><strong>Address:</strong> {row['address']}</p>
-                    <p style="margin: 2px 0; font-size: 11px;"><strong>Phone:</strong> {row['phone']}</p>
-                    <p style="margin: 2px 0; font-size: 11px; word-break: break-word;"><strong>Hours:</strong> {row['hours']}</p>
+                <div style="font-family: Arial, sans-serif; max-width: 250px;">
+                    <h4 style="margin: 0 0 5px 0; color: #2E8B57;">{row['name']}</h4>
+                    <p style="margin: 2px 0; font-size: 12px;"><strong>Address:</strong> {row['address']}</p>
+                    <p style="margin: 2px 0; font-size: 12px;"><strong>Phone:</strong> {row['phone']}</p>
+                    <p style="margin: 2px 0; font-size: 12px;"><strong>Hours:</strong> {row['hours']}</p>
                 </div>
                 """
                 
