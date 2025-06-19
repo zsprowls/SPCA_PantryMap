@@ -148,11 +148,33 @@ else:
                 
                 # Create tooltip content
                 tooltip_content = f"""
-                <div style="font-family: Arial, sans-serif; max-width: 250px;">
-                    <h4 style="margin: 0 0 5px 0; color: #2E8B57;">{row['name']}</h4>
-                    <p style="margin: 2px 0; font-size: 12px;"><strong>Address:</strong> {row['address']}</p>
-                    <p style="margin: 2px 0; font-size: 12px;"><strong>Phone:</strong> {row['phone']}</p>
-                    <p style="margin: 2px 0; font-size: 12px;"><strong>Hours:</strong> {row['hours']}</p>
+                <div style="
+                    font-family: Arial, sans-serif; 
+                    max-width: 200px; 
+                    word-wrap: break-word; 
+                    overflow-wrap: break-word;
+                    line-height: 1.3;
+                ">
+                    <h4 style="
+                        margin: 0 0 8px 0; 
+                        color: #2E8B57; 
+                        font-size: 14px; 
+                        font-weight: bold;
+                        border-bottom: 1px solid #2E8B57;
+                        padding-bottom: 4px;
+                    ">{row['name']}</h4>
+                    <p style="margin: 4px 0; font-size: 11px; line-height: 1.2;">
+                        <strong>📍 Address:</strong><br>
+                        <span style="word-break: break-word;">{row['address']}</span>
+                    </p>
+                    <p style="margin: 4px 0; font-size: 11px; line-height: 1.2;">
+                        <strong>📞 Phone:</strong><br>
+                        {row['phone']}
+                    </p>
+                    <p style="margin: 4px 0; font-size: 11px; line-height: 1.2;">
+                        <strong>🕒 Hours:</strong><br>
+                        <span style="word-break: break-word;">{row['hours']}</span>
+                    </p>
                 </div>
                 """
                 
@@ -220,10 +242,15 @@ else:
                     sticky=False,
                     labels=True,
                     style="""
-                        background-color: yellow;
-                        border: 2px solid black;
-                        border-radius: 3px;
-                        box-shadow: 3px;
+                        background-color: #2E8B57;
+                        color: white;
+                        border: 2px solid #5E6D40;
+                        border-radius: 8px;
+                        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+                        font-family: Arial, sans-serif;
+                        font-size: 12px;
+                        font-weight: bold;
+                        padding: 8px 12px;
                     """
                 )
             ).add_to(m)
