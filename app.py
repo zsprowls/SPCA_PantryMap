@@ -7,62 +7,151 @@ import geopandas as gpd
 from geopy.geocoders import Nominatim
 from geopy.distance import geodesic
 from streamlit_folium import st_folium
+import os
 
-# --- BRANDING ---
-# Force light mode
+# Force light mode and set page config
 st.set_page_config(page_title="SPCA Client Density & Food Pantry Map", page_icon="🐾", layout="wide")
-st.markdown(
-    """
-    <style>
-    body, .stApp {
-        background-color: #f8fafc !important;
-        color: #222 !important;
-    }
-    .block-container {
-        background-color: #ffffff !important;
-        border-radius: 12px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-        padding: 2rem 2rem 1rem 2rem;
-    }
-    .stButton>button {
-        background-color: #7ac143 !important;
-        color: white !important;
-        border-radius: 8px;
-        border: none;
-        font-weight: bold;
-    }
-    .st-bb, .st-cq, .st-cv, .st-cw, .st-cx, .st-cy, .st-cz {
-        background-color: #f8fafc !important;
-    }
-    .stMarkdown h1, .stMarkdown h2, .stMarkdown h3 {
-        color: #5E6D40 !important;
-    }
-    .centered-title {
-        text-align: center;
-        margin-bottom: 0.5em;
-        color: #5E6D40 !important;
-    }
-    .centered-desc {
-        text-align: center;
-        font-size: 1.1em;
-        color: #444;
-        margin-top: 0;
-        margin-bottom: 2em;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
+
+# File selector at the top
+st.sidebar.title("App Selector")
+app_choice = st.sidebar.selectbox(
+    "Choose which app to run:",
+    ["Main App (Circles & Pins)", "Simple Folium Test", "Plotly Map Test"]
 )
 
-# Add logo (not centered)
-st.image("https://bufny.wpenginepowered.com/wp-content/uploads/2020/07/cropped-SPCAlogo_horiz_notagline_color.jpg", width=350)
-# Centered title and description
-st.markdown("""
-<h2 class='centered-title'>SPCA Client Density & Human Food Pantry Map</h2>
-<p class='centered-desc'>This map shows human food pantry locations (green pins) with colored circles indicating SPCA client density by ZIP code area.</p>
-""", unsafe_allow_html=True)
+if app_choice == "Simple Folium Test":
+    # Import and run the simple folium test
+    import simple_map_test
+elif app_choice == "Plotly Map Test":
+    # Import and run the plotly test
+    import plotly_map_test
+else:
+    # Main app code
+    st.markdown(
+        """
+        <style>
+        body, .stApp {
+            background-color: #f8fafc !important;
+            color: #222 !important;
+        }
+        .block-container {
+            background-color: #ffffff !important;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            padding: 2rem 2rem 1rem 2rem;
+        }
+        .stButton>button {
+            background-color: #7ac143 !important;
+            color: white !important;
+            border-radius: 8px;
+            border: none;
+            font-weight: bold;
+        }
+        .st-bb, .st-cq, .st-cv, .st-cw, .st-cx, .st-cy, .st-cz {
+            background-color: #f8fafc !important;
+        }
+        .stMarkdown h1, .stMarkdown h2, .stMarkdown h3 {
+            color: #5E6D40 !important;
+        }
+        .centered-title {
+            text-align: center;
+            margin-bottom: 0.5em;
+            color: #5E6D40 !important;
+        }
+        .centered-desc {
+            text-align: center;
+            font-size: 1.1em;
+            color: #444;
+            margin-top: 0;
+            margin-bottom: 2em;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
 
-# --- END BRANDING ---
+    # Add logo
+    st.image("https://bufny.wpenginepowered.com/wp-content/uploads/2020/07/cropped-SPCAlogo_horiz_notagline_color.jpg", width=350)
+    
+    # Centered title and description
+    st.markdown("""
+    <h2 class='centered-title'>SPCA Client Density & Human Food Pantry Map</h2>
+    <p class='centered-desc'>This map shows human food pantry locations (red pins) with colored circles indicating SPCA client density by ZIP code area.</p>
+    """, unsafe_allow_html=True)
+
+    # Load data
+    @st.cache_data
+    def load_data():
+        try:
+            # Load pantry locations
+            pantry_df = pd.read_csv('map_data/geocoded_pantry_locations.csv')
+            st.write(f"✅ Loaded {len(pantry_df)} pantry locations")
+            
+            # Load survey data
+            with open('map_data/erie_survey_zips.geojson', 'r') as f:
+                survey_data = json.load(f)
+            st.write(f"✅ Loaded survey data with {len(survey_data['features'])} zip codes")
+            
+            return pantry_df, survey_data
+        except Exception as e:
+            st.error(f"❌ Error loading data: {e}")
+            return None, None
+    
+    pantry_df, survey_data = load_data()
+    
+    if pantry_df is not None and survey_data is not None:
+        # Create map
+        m = folium.Map(location=[42.8864, -78.8784], zoom_start=9)
+        
+        # Add pantry markers
+        for idx, row in pantry_df.iterrows():
+            folium.Marker(
+                location=[row['latitude'], row['longitude']],
+                popup=f"<b>{row['name']}</b><br>{row['address']}",
+                icon=folium.Icon(color='red', icon='info-sign')
+            ).add_to(m)
+        
+        # Add colored circles for survey data
+        for feature in survey_data['features']:
+            properties = feature['properties']
+            geometry = feature['geometry']
+            
+            if geometry['type'] == 'Polygon':
+                coordinates = geometry['coordinates'][0]
+                # Convert to lat/lon pairs
+                lat_lon_pairs = [[coord[1], coord[0]] for coord in coordinates]
+                
+                # Color based on client count
+                client_count = properties.get('client_count', 0)
+                if client_count > 100:
+                    color = 'red'
+                elif client_count > 50:
+                    color = 'orange'
+                elif client_count > 20:
+                    color = 'yellow'
+                else:
+                    color = 'green'
+                
+                folium.Polygon(
+                    locations=lat_lon_pairs,
+                    color=color,
+                    fill=True,
+                    fill_opacity=0.3,
+                    popup=f"Zip: {properties.get('zip_code', 'N/A')}<br>Clients: {client_count}"
+                ).add_to(m)
+        
+        # Display map
+        st_folium(m, width=800, height=600)
+        
+        # Show data summary
+        st.subheader("Data Summary")
+        col1, col2 = st.columns(2)
+        with col1:
+            st.write(f"**Pantry Locations:** {len(pantry_df)}")
+        with col2:
+            st.write(f"**Survey Zip Codes:** {len(survey_data['features'])}")
+    else:
+        st.error("Failed to load data. Please check your data files.")
 
 # --- SIDEBAR: Adoption/Support Links ---
 with st.sidebar:
