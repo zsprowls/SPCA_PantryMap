@@ -127,12 +127,59 @@ else:
                 # Double-check coordinates are valid
                 if pd.isna(lat) or pd.isna(lon) or not (40 <= lat <= 45) or not (-80 <= lon <= -78):
                     continue
-                    
+                
+                # Create custom icon for food pantries
+                icon_html = '''
+                <div style="
+                    background-color: #2E8B57;
+                    border: 2px solid white;
+                    border-radius: 50%;
+                    width: 20px;
+                    height: 20px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+                ">
+                    <span style="color: white; font-size: 12px; font-weight: bold;">🍽️</span>
+                </div>
+                '''
+                
+                # Create tooltip content
+                tooltip_content = f"""
+                <div style="font-family: Arial, sans-serif; max-width: 250px;">
+                    <h4 style="margin: 0 0 5px 0; color: #2E8B57;">{row['name']}</h4>
+                    <p style="margin: 2px 0; font-size: 12px;"><strong>Address:</strong> {row['address']}</p>
+                    <p style="margin: 2px 0; font-size: 12px;"><strong>Phone:</strong> {row['phone']}</p>
+                    <p style="margin: 2px 0; font-size: 12px;"><strong>Hours:</strong> {row['hours']}</p>
+                </div>
+                """
+                
+                # Create popup content (for clicking)
+                popup_content = f"""
+                <div style="font-family: Arial, sans-serif; max-width: 300px;">
+                    <h3 style="margin: 0 0 10px 0; color: #2E8B57; border-bottom: 2px solid #2E8B57; padding-bottom: 5px;">{row['name']}</h3>
+                    <p style="margin: 5px 0;"><strong>📍 Address:</strong><br>{row['address']}</p>
+                    <p style="margin: 5px 0;"><strong>📞 Phone:</strong><br>{row['phone']}</p>
+                    <p style="margin: 5px 0;"><strong>🕒 Hours:</strong><br>{row['hours']}</p>
+                </div>
+                """
+                
+                # Create custom icon
+                icon = folium.DivIcon(
+                    html=icon_html,
+                    icon_size=(20, 20),
+                    icon_anchor=(10, 10)
+                )
+                
+                # Add marker with tooltip and popup
                 folium.Marker(
                     location=[lat, lon],
-                    popup=f"<b>{row['name']}</b><br>{row['address']}",
-                    icon=folium.Icon(color='red', icon='info-sign')
+                    popup=folium.Popup(popup_content, max_width=350),
+                    tooltip=folium.Tooltip(tooltip_content, permanent=False),
+                    icon=icon
                 ).add_to(m)
+                
             except (ValueError, TypeError) as e:
                 st.warning(f"⚠️ Skipping invalid coordinates for {row['name']}: {e}")
                 continue
@@ -147,35 +194,74 @@ else:
                 # Convert to lat/lon pairs
                 lat_lon_pairs = [[coord[1], coord[0]] for coord in coordinates]
                 
-                # Color based on client count
+                # Color based on client count with better color scheme
                 client_count = properties.get('client_count', 0)
                 if client_count > 100:
-                    color = 'red'
+                    color = '#d73027'  # Dark red
+                    fill_opacity = 0.7
                 elif client_count > 50:
-                    color = 'orange'
+                    color = '#fc8d59'  # Orange
+                    fill_opacity = 0.6
                 elif client_count > 20:
-                    color = 'yellow'
+                    color = '#fee08b'  # Yellow
+                    fill_opacity = 0.5
+                elif client_count > 5:
+                    color = '#d9ef8b'  # Light green
+                    fill_opacity = 0.4
                 else:
-                    color = 'green'
+                    color = '#91cf60'  # Green
+                    fill_opacity = 0.3
                 
                 folium.Polygon(
                     locations=lat_lon_pairs,
                     color=color,
                     fill=True,
-                    fill_opacity=0.3,
-                    popup=f"Zip: {properties.get('zip_code', 'N/A')}<br>Clients: {client_count}"
+                    fill_opacity=fill_opacity,
+                    weight=2,
+                    popup=f"<b>Zip Code: {properties.get('zip_code', 'N/A')}</b><br>SPCA Clients: {client_count}"
                 ).add_to(m)
         
         # Display map
         st_folium(m, width=800, height=600)
         
-        # Show data summary
-        st.subheader("Data Summary")
-        col1, col2 = st.columns(2)
+        # Add legend
+        st.markdown("---")
+        col1, col2 = st.columns([2, 1])
+        
         with col1:
-            st.write(f"**Pantry Locations:** {len(pantry_df)}")
+            st.subheader("Map Legend")
+            st.markdown("""
+            **🍽️ Food Pantry Locations** - Green circles with fork/knife icon
+            """)
+            
+            st.markdown("**SPCA Client Density by ZIP Code:**")
+            legend_data = [
+                ("#d73027", "100+ clients", "Very High"),
+                ("#fc8d59", "51-100 clients", "High"), 
+                ("#fee08b", "21-50 clients", "Medium"),
+                ("#d9ef8b", "6-20 clients", "Low"),
+                ("#91cf60", "1-5 clients", "Very Low")
+            ]
+            
+            for color, range_text, level in legend_data:
+                st.markdown(f"""
+                <div style="display: flex; align-items: center; margin: 5px 0;">
+                    <div style="width: 20px; height: 20px; background-color: {color}; border: 1px solid #ccc; margin-right: 10px;"></div>
+                    <span>{range_text} ({level})</span>
+                </div>
+                """, unsafe_allow_html=True)
+        
         with col2:
-            st.write(f"**Survey Zip Codes:** {len(survey_data['features'])}")
+            st.subheader("Data Summary")
+            st.write(f"**🍽️ Pantry Locations:** {len(pantry_df)}")
+            st.write(f"**🗺️ Survey Zip Codes:** {len(survey_data['features'])}")
+            
+            # Calculate total clients
+            total_clients = sum(
+                feature['properties'].get('client_count', 0) 
+                for feature in survey_data['features']
+            )
+            st.write(f"**👥 Total SPCA Clients:** {total_clients:,}")
     else:
         st.error("Failed to load data. Please check your data files.")
 
