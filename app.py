@@ -102,19 +102,35 @@ else:
             
             st.write(f"✅ Loaded {filtered_count} pantry locations (filtered from {original_count})")
             
-            # Load survey data
+            # Load survey data for ZIP boundaries
             with open('map_data/erie_survey_zips.geojson', 'r') as f:
                 survey_data = json.load(f)
-            st.write(f"✅ Loaded survey data with {len(survey_data['features'])} zip codes")
             
-            return pantry_df, survey_data
+            # Load PantryMap data for client counts
+            pantry_map = pd.read_csv('map_data/PantryMap.csv')
+            
+            # Clean ZIP codes
+            def clean_zip(zipcode):
+                try:
+                    return str(int(float(zipcode))).zfill(5)
+                except:
+                    return None
+            
+            pantry_map['Postal Code'] = pantry_map['Postal Code'].apply(clean_zip)
+            zip_counts = pantry_map['Postal Code'].value_counts().reset_index()
+            zip_counts.columns = ['ZCTA5CE10', 'client_count']
+            
+            st.write(f"✅ Loaded survey data with {len(survey_data['features'])} zip codes")
+            st.write(f"✅ Loaded client data with {len(zip_counts)} zip codes that have clients")
+            
+            return pantry_df, survey_data, zip_counts
         except Exception as e:
             st.error(f"❌ Error loading data: {e}")
-            return None, None
+            return None, None, None
     
-    pantry_df, survey_data = load_data()
+    pantry_df, survey_data, zip_counts = load_data()
     
-    if pantry_df is not None and survey_data is not None:
+    if pantry_df is not None and survey_data is not None and zip_counts is not None:
         # Create map
         m = folium.Map(location=[42.8864, -78.8784], zoom_start=9)
         
@@ -164,6 +180,14 @@ else:
         for feature in survey_data['features']:
             properties = feature['properties']
             geometry = feature['geometry']
+            zip_code = properties.get('ZCTA5CE10', '')
+            
+            # Find client count for this ZIP code
+            zip_data = zip_counts[zip_counts['ZCTA5CE10'] == zip_code]
+            if zip_data.empty:
+                continue  # Skip ZIP codes with no clients
+            
+            client_count = zip_data.iloc[0]['client_count']
             
             if geometry['type'] == 'Polygon':
                 # Get the center of the polygon for placing the circle
@@ -173,7 +197,6 @@ else:
                 center_lon = sum(coord[0] for coord in coordinates) / len(coordinates)
                 
                 # Color based on client count with red gradient
-                client_count = properties.get('client_count', 0)
                 if client_count > 100:
                     color = '#d73027'  # Dark red
                     radius = 3000
@@ -197,7 +220,7 @@ else:
                     fill=True,
                     fill_opacity=0.6,
                     weight=2,
-                    popup=f"<b>Zip Code: {properties.get('zip_code', 'N/A')}</b><br>SPCA Clients: {client_count}"
+                    popup=f"<b>Zip Code: {zip_code}</b><br>SPCA Clients: {client_count}"
                 ).add_to(m)
         
         # Display map
