@@ -128,23 +128,6 @@ else:
                 if pd.isna(lat) or pd.isna(lon) or not (40 <= lat <= 45) or not (-80 <= lon <= -78):
                     continue
                 
-                # Create custom icon for food pantries (green grocery cart)
-                icon_html = '''
-                <div style="
-                    background-color: #2E8B57;
-                    border: 2px solid white;
-                    border-radius: 50%;
-                    width: 24px;
-                    height: 24px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
-                ">
-                    <span style="color: white; font-size: 14px; font-weight: bold;">🛒</span>
-                </div>
-                '''
-                
                 # Create tooltip content
                 tooltip_content = f"""
                 <div style="font-family: Arial, sans-serif; max-width: 250px;">
@@ -165,58 +148,54 @@ else:
                 </div>
                 """
                 
-                # Create custom icon
-                icon = folium.DivIcon(
-                    html=icon_html,
-                    icon_size=(20, 20),
-                    icon_anchor=(10, 10)
-                )
-                
                 # Add marker with tooltip and popup
                 folium.Marker(
                     location=[lat, lon],
                     popup=folium.Popup(popup_content, max_width=350),
                     tooltip=folium.Tooltip(tooltip_content, permanent=False),
-                    icon=icon
+                    icon=folium.Icon(color='green', icon='shopping-cart', prefix='fa')
                 ).add_to(m)
                 
             except (ValueError, TypeError) as e:
                 st.warning(f"⚠️ Skipping invalid coordinates for {row['name']}: {e}")
                 continue
         
-        # Add colored circles for survey data
+        # Add colored circles for survey data (simple approach that works)
         for feature in survey_data['features']:
             properties = feature['properties']
             geometry = feature['geometry']
             
             if geometry['type'] == 'Polygon':
+                # Get the center of the polygon for placing the circle
                 coordinates = geometry['coordinates'][0]
-                # Convert to lat/lon pairs
-                lat_lon_pairs = [[coord[1], coord[0]] for coord in coordinates]
+                # Calculate center (simple average)
+                center_lat = sum(coord[1] for coord in coordinates) / len(coordinates)
+                center_lon = sum(coord[0] for coord in coordinates) / len(coordinates)
                 
                 # Color based on client count with red gradient
                 client_count = properties.get('client_count', 0)
                 if client_count > 100:
                     color = '#d73027'  # Dark red
-                    fill_opacity = 0.8
+                    radius = 3000
                 elif client_count > 50:
                     color = '#f46d43'  # Red
-                    fill_opacity = 0.7
+                    radius = 2500
                 elif client_count > 20:
                     color = '#fdae61'  # Light red
-                    fill_opacity = 0.6
+                    radius = 2000
                 elif client_count > 5:
                     color = '#fee08b'  # Very light red
-                    fill_opacity = 0.5
+                    radius = 1500
                 else:
                     color = '#ffffcc'  # Almost white
-                    fill_opacity = 0.4
+                    radius = 1000
                 
-                folium.Polygon(
-                    locations=lat_lon_pairs,
+                folium.Circle(
+                    location=[center_lat, center_lon],
+                    radius=radius,
                     color=color,
                     fill=True,
-                    fill_opacity=fill_opacity,
+                    fill_opacity=0.6,
                     weight=2,
                     popup=f"<b>Zip Code: {properties.get('zip_code', 'N/A')}</b><br>SPCA Clients: {client_count}"
                 ).add_to(m)
@@ -231,10 +210,10 @@ else:
         with col1:
             st.subheader("Map Legend")
             st.markdown("""
-            **🛒 Food Pantry Locations** - Green circles with grocery cart icon
+            **🛒 Food Pantry Locations** - Green shopping cart icons
             """)
             
-            st.markdown("**SPCA Client Density by ZIP Code (Red Gradient):**")
+            st.markdown("**SPCA Client Density by ZIP Code (Red Gradient Circles):**")
             legend_data = [
                 ("#d73027", "100+ clients", "Very High"),
                 ("#f46d43", "51-100 clients", "High"), 
@@ -322,44 +301,6 @@ gdf['count'] = gdf['count'].fillna(0)
 
 # Create a Folium map centered on Erie County
 m = folium.Map(location=[42.8864, -78.8784], zoom_start=9, tiles='OpenStreetMap')
-
-# Add colored circles to show ZIP code data (more reliable than choropleth)
-try:
-    st.write(f"Creating ZIP code visualization with {len(gdf)} ZIP codes...")
-    st.write(f"Sample data: {gdf[['ZCTA5CE10', 'count']].head()}")
-    
-    # Add colored circles for ZIP codes with data
-    st.write("Adding colored circles for ZIP codes...")
-    for _, row in gdf.iterrows():
-        if row['count'] > 0:  # Only show ZIP codes with data
-            # Get the center of the polygon
-            center = row['geometry'].centroid
-            # Color based on count
-            if row['count'] > 10:
-                color = 'red'
-                radius = 2000
-            elif row['count'] > 5:
-                color = 'orange'
-                radius = 1500
-            else:
-                color = 'yellow'
-                radius = 1000
-            
-            folium.Circle(
-                location=[center.y, center.x],
-                radius=radius,
-                color=color,
-                fill=True,
-                fill_opacity=0.6,
-                popup=f"ZIP: {row['ZCTA5CE10']}<br>Client Count: {int(row['count'])}",
-                tooltip=f"ZIP {row['ZCTA5CE10']}: {int(row['count'])} clients"
-            ).add_to(m)
-    
-    st.success("✅ ZIP code visualization added successfully!")
-    
-except Exception as e:
-    st.error(f"❌ ZIP code visualization failed: {e}")
-    st.write("Continuing with just the pins...")
 
 # Add clustered pantry pins with hover tooltips
 marker_cluster = MarkerCluster().add_to(m)
