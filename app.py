@@ -144,7 +144,11 @@ if pantry_df is not None and survey_data is not None and zip_counts is not None:
         doubleClickZoom=True,
         boxZoom=True,
         keyboard=True,
-        tap=True
+        tap=True,
+        min_zoom=7,
+        max_zoom=15,
+        zoom_snap=1,
+        zoom_delta=1
     )
     
     # Add pantry markers with clustering
