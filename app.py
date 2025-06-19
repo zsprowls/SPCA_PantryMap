@@ -176,52 +176,30 @@ else:
                 st.warning(f"⚠️ Skipping invalid coordinates for {row['name']}: {e}")
                 continue
         
-        # Add colored circles for survey data (simple approach that works)
-        for feature in survey_data['features']:
-            properties = feature['properties']
-            geometry = feature['geometry']
-            zip_code = properties.get('ZCTA5CE10', '')
-            
-            # Find client count for this ZIP code
-            zip_data = zip_counts[zip_counts['ZCTA5CE10'] == zip_code]
-            if zip_data.empty:
-                continue  # Skip ZIP codes with no clients
-            
-            client_count = zip_data.iloc[0]['client_count']
-            
-            if geometry['type'] == 'Polygon':
-                # Get the center of the polygon for placing the circle
-                coordinates = geometry['coordinates'][0]
-                # Calculate center (simple average)
-                center_lat = sum(coord[1] for coord in coordinates) / len(coordinates)
-                center_lon = sum(coord[0] for coord in coordinates) / len(coordinates)
-                
-                # Color based on client count with red gradient
-                if client_count > 100:
-                    color = '#d73027'  # Dark red
-                    radius = 3000
-                elif client_count > 50:
-                    color = '#f46d43'  # Red
-                    radius = 2500
-                elif client_count > 20:
-                    color = '#fdae61'  # Light red
-                    radius = 2000
-                elif client_count > 5:
-                    color = '#fee08b'  # Very light red
-                    radius = 1500
-                else:
-                    color = '#ffffcc'  # Almost white
-                    radius = 1000
-                
-                folium.Circle(
-                    location=[center_lat, center_lon],
-                    radius=radius,
-                    color=color,
-                    fill=True,
-                    fill_opacity=0.6,
-                    weight=2,
-                    popup=f"<b>Zip Code: {zip_code}</b><br>SPCA Clients: {client_count}"
-                ).add_to(m)
+        # Create choropleth with ZIP code boundaries
+        # Create GeoDataFrame from survey data
+        gdf = gpd.GeoDataFrame.from_features(survey_data['features'])
+        gdf['ZCTA5CE10'] = gdf['ZCTA5CE10'].astype(str)
+        
+        # Merge with client count data
+        gdf = gdf.merge(zip_counts, on='ZCTA5CE10', how='left')
+        gdf['client_count'] = gdf['client_count'].fillna(0)
+        
+        # Add choropleth layer
+        folium.Choropleth(
+            geo_data=gdf.__geo_interface__,
+            data=gdf,
+            columns=['ZCTA5CE10', 'client_count'],
+            key_on='feature.properties.ZCTA5CE10',
+            fill_color='Reds',
+            fill_opacity=0.7,
+            line_opacity=0.8,
+            line_weight=1,
+            legend_name='SPCA Client Count',
+            nan_fill_color='white',
+            highlight=True,
+            smooth_factor=0
+        ).add_to(m)
         
         # Display map
         st_folium(m, width=800, height=600)
@@ -236,22 +214,14 @@ else:
             **🛒 Food Pantry Locations** - Green shopping cart icons
             """)
             
-            st.markdown("**SPCA Client Density by ZIP Code (Red Gradient Circles):**")
-            legend_data = [
-                ("#d73027", "100+ clients", "Very High"),
-                ("#f46d43", "51-100 clients", "High"), 
-                ("#fdae61", "21-50 clients", "Medium"),
-                ("#fee08b", "6-20 clients", "Low"),
-                ("#ffffcc", "1-5 clients", "Very Low")
-            ]
-            
-            for color, range_text, level in legend_data:
-                st.markdown(f"""
-                <div style="display: flex; align-items: center; margin: 5px 0;">
-                    <div style="width: 20px; height: 20px; background-color: {color}; border: 1px solid #ccc; margin-right: 10px;"></div>
-                    <span>{range_text} ({level})</span>
-                </div>
-                """, unsafe_allow_html=True)
+            st.markdown("**SPCA Client Density by ZIP Code (Choropleth):**")
+            st.markdown("""
+            The colored areas show ZIP code boundaries with SPCA client density:
+            - **Dark Red** = High client density
+            - **Light Red** = Medium client density  
+            - **Very Light Red** = Low client density
+            - **White** = No clients
+            """)
         
         with col2:
             st.subheader("Data Summary")
