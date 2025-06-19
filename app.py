@@ -148,31 +148,11 @@ else:
                 
                 # Create tooltip content
                 tooltip_content = f"""
-                <div style="
-                    font-family: Arial, sans-serif; 
-                    max-width: 180px; 
-                    word-wrap: break-word; 
-                    overflow-wrap: break-word;
-                    line-height: 1.2;
-                    font-size: 11px;
-                ">
-                    <div style="
-                        font-weight: bold; 
-                        color: #2E8B57; 
-                        font-size: 12px; 
-                        margin-bottom: 4px;
-                        border-bottom: 1px solid #2E8B57;
-                        padding-bottom: 2px;
-                    ">{row['name']}</div>
-                    <div style="margin: 2px 0;">
-                        <strong>📍</strong> {row['address']}
-                    </div>
-                    <div style="margin: 2px 0;">
-                        <strong>📞</strong> {row['phone']}
-                    </div>
-                    <div style="margin: 2px 0;">
-                        <strong>🕒</strong> {row['hours']}
-                    </div>
+                <div style="font-family: Arial, sans-serif; max-width: 250px;">
+                    <h4 style="margin: 0 0 5px 0; color: #2E8B57;">{row['name']}</h4>
+                    <p style="margin: 2px 0; font-size: 12px;"><strong>Address:</strong> {row['address']}</p>
+                    <p style="margin: 2px 0; font-size: 12px;"><strong>Phone:</strong> {row['phone']}</p>
+                    <p style="margin: 2px 0; font-size: 12px;"><strong>Hours:</strong> {row['hours']}</p>
                 </div>
                 """
                 
@@ -235,21 +215,20 @@ else:
                 style_function=style_function,
                 tooltip=folium.GeoJsonTooltip(
                     fields=['ZCTA5CE10', 'client_count'],
-                    aliases=['ZIP', 'Clients'],
+                    aliases=['ZIP Code', 'SPCA Clients'],
                     localize=True,
                     sticky=False,
                     labels=True,
                     style="""
-                        background-color: rgba(46, 139, 87, 0.9);
+                        background-color: #2E8B57;
                         color: white;
-                        border: 1px solid #5E6D40;
-                        border-radius: 4px;
-                        box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+                        border: 2px solid #5E6D40;
+                        border-radius: 8px;
+                        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
                         font-family: Arial, sans-serif;
-                        font-size: 10px;
-                        font-weight: normal;
-                        padding: 4px 6px;
-                        max-width: 120px;
+                        font-size: 12px;
+                        font-weight: bold;
+                        padding: 8px 12px;
                     """
                 )
             ).add_to(m)
